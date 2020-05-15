@@ -153,6 +153,7 @@
     <Compile Include="ServiceContracts\IFoodService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\FoodService.cs" />
+    <Compile Include="Validations\Employee.cs" />
     <Compile Include="Validations\Food_Item.cs" />
   </ItemGroup>
   <ItemGroup>

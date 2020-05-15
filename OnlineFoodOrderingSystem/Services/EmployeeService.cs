@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FoodOrdering.Web.ExceptionLayer;
+using FoodOrdering.Web.Models;
+using FoodOrdering.Web.ServiceContracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -44,7 +47,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// AddEmployee(Employees employee) adds the employee to the Employees table
         /// </summary>
         /// <param name="employee"></param>
-        /// <returns>integer value indicating the Employee_Id of the added employee</returns>
+        /// <returns>bool value indicating the Employee_Id of the added employee</returns>
         public bool AddEmployee(Employee employee)
         {
             try

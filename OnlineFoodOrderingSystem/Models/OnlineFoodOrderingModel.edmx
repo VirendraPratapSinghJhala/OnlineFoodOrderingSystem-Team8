@@ -1,0 +1,764 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Online_Food_Ordering_SystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Mobile_No" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Creation_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Employee_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="Store_Id" Type="int" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Mobile_No" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Creation_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Food_Items">
+          <Key>
+            <PropertyRef Name="Food_Item_Id" />
+          </Key>
+          <Property Name="Food_Item_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Food_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Food_Type" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Creation_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Food_Stores">
+          <Key>
+            <PropertyRef Name="Food_Store_Id" />
+          </Key>
+          <Property Name="Food_Store_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Food_Store_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="Mobile_No" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Creation_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="Order_Item_Id" />
+          </Key>
+          <Property Name="Order_Item_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order_Id" Type="int" />
+          <Property Name="Food_Item_Id" Type="int" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Creation_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Id" Type="int" Nullable="false" />
+          <Property Name="Submit_Status" Type="bit" Nullable="false" />
+          <Property Name="Order_date" Type="date" />
+          <Property Name="Total_Quantity" Type="int" />
+          <Property Name="Total_Price" Type="int" />
+          <Property Name="Food_Store_Id" Type="int" />
+          <Property Name="Employee_Id" Type="int" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="Creation_Date" Type="date" Nullable="false" />
+        </EntityType>
+        <Association Name="Fk_Customer">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Employee">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Food_Items">
+          <End Role="Food_Items" Type="Self.Food_Items" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_Items">
+              <PropertyRef Name="Food_Item_Id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Food_Item_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_FoodStore">
+          <End Role="Food_Stores" Type="Self.Food_Stores" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_Stores">
+              <PropertyRef Name="Food_Store_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Food_Store_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Store">
+          <End Role="Food_Stores" Type="Self.Food_Stores" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_Stores">
+              <PropertyRef Name="Food_Store_Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="Store_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_AddCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerName" Type="nvarchar" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="mobileNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="city" Type="nvarchar" Mode="In" />
+          <Parameter Name="customerId" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_AddEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Age" Type="int" Mode="In" />
+          <Parameter Name="Store_Id" Type="int" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mobile_No" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="City" Type="nvarchar" Mode="In" />
+          <Parameter Name="Employee_Id" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_AddFoodItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="foodName" Type="nvarchar" Mode="In" />
+          <Parameter Name="foodType" Type="nvarchar" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+          <Parameter Name="foodId" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_AddFoodStoreDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="storeName" Type="nvarchar" Mode="In" />
+          <Parameter Name="location" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="mobileNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="rating" Type="int" Mode="In" />
+          <Parameter Name="storeId" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_AddOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerId" Type="int" Mode="In" />
+          <Parameter Name="orderId" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_AddOrderItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+          <Parameter Name="foodItemId" Type="int" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_DeleteCustomerById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_DeleteEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_DeleteFoodItemById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="foodId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_DeleteFoodStoreById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="storeId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_DeleteOrderById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_EditFoodStoreDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="storeName" Type="nvarchar" Mode="In" />
+          <Parameter Name="location" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="mobileNum" Type="nvarchar" Mode="In" />
+          <Parameter Name="rating" Type="int" Mode="In" />
+          <Parameter Name="storeId" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="usp_GetFoodItemDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetFoodStores" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_UpdateCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="customerId" Type="int" Mode="In" />
+          <Parameter Name="customerName" Type="nvarchar" Mode="In" />
+          <Parameter Name="age" Type="int" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+          <Parameter Name="mobileNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="city" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_UpdateEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Employee_Id" Type="int" Mode="In" />
+          <Parameter Name="Employee_Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Age" Type="int" Mode="In" />
+          <Parameter Name="Store_Id" Type="int" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mobile_No" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="City" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_UpdateFoodItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="foodId" Type="int" Mode="In" />
+          <Parameter Name="foodName" Type="nvarchar" Mode="In" />
+          <Parameter Name="foodType" Type="nvarchar" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="usp_UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+          <Parameter Name="submitStatus" Type="bit" Mode="In" />
+          <Parameter Name="foodStoreId" Type="int" Mode="In" />
+          <Parameter Name="employeeId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_UpdateOrderItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+          <Parameter Name="foodItemId" Type="int" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Online_Food_Ordering_SystemModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Food_Items" EntityType="Self.Food_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Food_Stores" EntityType="Self.Food_Stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Fk_Customer" Association="Self.Fk_Customer">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Employee" Association="Self.Fk_Employee">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Food_Items" Association="Self.Fk_Food_Items">
+            <End Role="Food_Items" EntitySet="Food_Items" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_FoodStore" Association="Self.Fk_FoodStore">
+            <End Role="Food_Stores" EntitySet="Food_Stores" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Orders" Association="Self.Fk_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Store" Association="Self.Fk_Store">
+            <End Role="Food_Stores" EntitySet="Food_Stores" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Online_Food_Ordering_SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_Id" />
+          </Key>
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile_No" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Orders" Relationship="Self.Fk_Customer" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_Id" />
+          </Key>
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Employee_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Age" Type="Int32" Nullable="false" />
+          <Property Name="Store_Id" Type="Int32" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mobile_No" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Orders" Relationship="Self.Fk_Employee" FromRole="Employees" ToRole="Orders" />
+          <NavigationProperty Name="Food_Stores" Relationship="Self.Fk_Store" FromRole="Employees" ToRole="Food_Stores" />
+        </EntityType>
+        <EntityType Name="Food_Item">
+          <Key>
+            <PropertyRef Name="Food_Item_Id" />
+          </Key>
+          <Property Name="Food_Item_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Food_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Food_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.Fk_Food_Items" FromRole="Food_Items" ToRole="Order_Items" />
+        </EntityType>
+        <EntityType Name="Food_Store">
+          <Key>
+            <PropertyRef Name="Food_Store_Id" />
+          </Key>
+          <Property Name="Food_Store_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Food_Store_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="Mobile_No" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Employees" Relationship="Self.Fk_Store" FromRole="Food_Stores" ToRole="Employees" />
+          <NavigationProperty Name="Orders" Relationship="Self.Fk_FoodStore" FromRole="Food_Stores" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Order_Item">
+          <Key>
+            <PropertyRef Name="Order_Item_Id" />
+          </Key>
+          <Property Name="Order_Item_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order_Id" Type="Int32" />
+          <Property Name="Food_Item_Id" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Food_Items" Relationship="Self.Fk_Food_Items" FromRole="Order_Items" ToRole="Food_Items" />
+          <NavigationProperty Name="Order" Relationship="Self.Fk_Orders" FromRole="Order_Items" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+          <Property Name="Submit_Status" Type="Boolean" Nullable="false" />
+          <Property Name="Order_date" Type="DateTime" Precision="0" />
+          <Property Name="Total_Quantity" Type="Int32" />
+          <Property Name="Total_Price" Type="Int32" />
+          <Property Name="Food_Store_Id" Type="Int32" />
+          <Property Name="Employee_Id" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.Fk_Customer" FromRole="Orders" ToRole="Customers" />
+          <NavigationProperty Name="Employee" Relationship="Self.Fk_Employee" FromRole="Orders" ToRole="Employees" />
+          <NavigationProperty Name="Food_Stores" Relationship="Self.Fk_FoodStore" FromRole="Orders" ToRole="Food_Stores" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.Fk_Orders" FromRole="Orders" ToRole="Order_Items" />
+        </EntityType>
+        <Association Name="Fk_Customer">
+          <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="Customer_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Customer_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Employee">
+          <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="Employee_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Store">
+          <End Role="Food_Stores" Type="Online_Food_Ordering_SystemModel.Food_Store" Multiplicity="0..1" />
+          <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_Stores">
+              <PropertyRef Name="Food_Store_Id" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="Store_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Food_Items">
+          <End Role="Food_Items" Type="Online_Food_Ordering_SystemModel.Food_Item" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Online_Food_Ordering_SystemModel.Order_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_Items">
+              <PropertyRef Name="Food_Item_Id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Food_Item_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_FoodStore">
+          <End Role="Food_Stores" Type="Online_Food_Ordering_SystemModel.Food_Store" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food_Stores">
+              <PropertyRef Name="Food_Store_Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Food_Store_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Online_Food_Ordering_SystemModel.Order_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="Order_Id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="Order_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Online_Food_Ordering_SystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Food_Items" EntityType="Online_Food_Ordering_SystemModel.Food_Item" />
+          <EntitySet Name="Food_Stores" EntityType="Online_Food_Ordering_SystemModel.Food_Store" />
+          <EntitySet Name="Order_Items" EntityType="Online_Food_Ordering_SystemModel.Order_Item" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <AssociationSet Name="Fk_Customer" Association="Self.Fk_Customer">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Employee" Association="Self.Fk_Employee">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Store" Association="Self.Fk_Store">
+            <End Role="Food_Stores" EntitySet="Food_Stores" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Food_Items" Association="Self.Fk_Food_Items">
+            <End Role="Food_Items" EntitySet="Food_Items" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_FoodStore" Association="Self.Fk_FoodStore">
+            <End Role="Food_Stores" EntitySet="Food_Stores" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_Orders" Association="Self.Fk_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <FunctionImport Name="usp_AddCustomer">
+            <Parameter Name="customerName" Mode="In" Type="String" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="mobileNo" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+            <Parameter Name="customerId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AddEmployee">
+            <Parameter Name="Employee_Name" Mode="In" Type="String" />
+            <Parameter Name="Age" Mode="In" Type="Int32" />
+            <Parameter Name="Store_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Mobile_No" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+            <Parameter Name="Employee_Id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AddFoodItem" ReturnType="Collection(Int64)">
+            <Parameter Name="foodName" Mode="In" Type="String" />
+            <Parameter Name="foodType" Mode="In" Type="String" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+            <Parameter Name="foodId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AddFoodStoreDetails">
+            <Parameter Name="storeName" Mode="In" Type="String" />
+            <Parameter Name="location" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="mobileNum" Mode="In" Type="String" />
+            <Parameter Name="rating" Mode="In" Type="Int32" />
+            <Parameter Name="storeId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AddOrder">
+            <Parameter Name="customerId" Mode="In" Type="Int32" />
+            <Parameter Name="orderId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_AddOrderItem">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+            <Parameter Name="foodItemId" Mode="In" Type="Int32" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteCustomerById">
+            <Parameter Name="customerId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteEmployee">
+            <Parameter Name="Employee_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteFoodItemById">
+            <Parameter Name="foodId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteFoodStoreById">
+            <Parameter Name="storeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_DeleteOrderById">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EditFoodStoreDetails">
+            <Parameter Name="storeName" Mode="In" Type="String" />
+            <Parameter Name="location" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="mobileNum" Mode="In" Type="String" />
+            <Parameter Name="rating" Mode="In" Type="Int32" />
+            <Parameter Name="storeId" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetFoodItemDetails" EntitySet="Food_Items" ReturnType="Collection(Online_Food_Ordering_SystemModel.Food_Item)" />
+          <FunctionImport Name="usp_GetFoodStores" ReturnType="Collection(Online_Food_Ordering_SystemModel.usp_GetFoodStores_Result)" />
+          <FunctionImport Name="usp_UpdateCustomer">
+            <Parameter Name="customerId" Mode="In" Type="Int32" />
+            <Parameter Name="customerName" Mode="In" Type="String" />
+            <Parameter Name="age" Mode="In" Type="Int32" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="mobileNo" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="city" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateEmployee">
+            <Parameter Name="Employee_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Employee_Name" Mode="In" Type="String" />
+            <Parameter Name="Age" Mode="In" Type="Int32" />
+            <Parameter Name="Store_Id" Mode="In" Type="Int32" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Mobile_No" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="City" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateFoodItem">
+            <Parameter Name="foodId" Mode="In" Type="Int32" />
+            <Parameter Name="foodName" Mode="In" Type="String" />
+            <Parameter Name="foodType" Mode="In" Type="String" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateOrder">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+            <Parameter Name="submitStatus" Mode="In" Type="Boolean" />
+            <Parameter Name="foodStoreId" Mode="In" Type="Int32" />
+            <Parameter Name="employeeId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_UpdateOrderItem">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+            <Parameter Name="foodItemId" Mode="In" Type="Int32" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_GetFoodItemDetails_Result">
+          <Property Type="Int32" Name="Food_Item_Id" Nullable="false" />
+          <Property Type="String" Name="Food_Name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Food_Type" Nullable="false" MaxLength="255" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="Creation_Date" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_GetFoodStores_Result">
+          <Property Type="Int32" Name="Food_Store_Id" Nullable="false" />
+          <Property Type="String" Name="Food_Store_Name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Location" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="Rating" Nullable="false" />
+          <Property Type="String" Name="Mobile_No" Nullable="false" MaxLength="13" />
+          <Property Type="Boolean" Name="IsActive" Nullable="false" />
+          <Property Type="DateTime" Name="Creation_Date" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Online_Food_Ordering_SystemModelStoreContainer" CdmEntityContainer="Online_Food_Ordering_SystemEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="Online_Food_Ordering_SystemModel.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Mobile_No" ColumnName="Mobile_No" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="Online_Food_Ordering_SystemModel.Employee">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Store_Id" ColumnName="Store_Id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Mobile_No" ColumnName="Mobile_No" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food_Items">
+            <EntityTypeMapping TypeName="Online_Food_Ordering_SystemModel.Food_Item">
+              <MappingFragment StoreEntitySet="Food_Items">
+                <ScalarProperty Name="Food_Item_Id" ColumnName="Food_Item_Id" />
+                <ScalarProperty Name="Food_Name" ColumnName="Food_Name" />
+                <ScalarProperty Name="Food_Type" ColumnName="Food_Type" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food_Stores">
+            <EntityTypeMapping TypeName="Online_Food_Ordering_SystemModel.Food_Store">
+              <MappingFragment StoreEntitySet="Food_Stores">
+                <ScalarProperty Name="Food_Store_Id" ColumnName="Food_Store_Id" />
+                <ScalarProperty Name="Food_Store_Name" ColumnName="Food_Store_Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Mobile_No" ColumnName="Mobile_No" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Items">
+            <EntityTypeMapping TypeName="Online_Food_Ordering_SystemModel.Order_Item">
+              <MappingFragment StoreEntitySet="Order_Items">
+                <ScalarProperty Name="Order_Item_Id" ColumnName="Order_Item_Id" />
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Food_Item_Id" ColumnName="Food_Item_Id" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Online_Food_Ordering_SystemModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+                <ScalarProperty Name="Submit_Status" ColumnName="Submit_Status" />
+                <ScalarProperty Name="Order_date" ColumnName="Order_date" />
+                <ScalarProperty Name="Total_Quantity" ColumnName="Total_Quantity" />
+                <ScalarProperty Name="Total_Price" ColumnName="Total_Price" />
+                <ScalarProperty Name="Food_Store_Id" ColumnName="Food_Store_Id" />
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_AddCustomer" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_AddCustomer" />
+          <FunctionImportMapping FunctionImportName="usp_AddEmployee" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_AddEmployee" />
+          <FunctionImportMapping FunctionImportName="usp_AddFoodItem" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_AddFoodItem" />
+          <FunctionImportMapping FunctionImportName="usp_AddFoodStoreDetails" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_AddFoodStoreDetails" />
+          <FunctionImportMapping FunctionImportName="usp_AddOrder" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_AddOrder" />
+          <FunctionImportMapping FunctionImportName="usp_AddOrderItem" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_AddOrderItem" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteCustomerById" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_DeleteCustomerById" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteEmployee" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_DeleteEmployee" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteFoodItemById" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_DeleteFoodItemById" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteFoodStoreById" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_DeleteFoodStoreById" />
+          <FunctionImportMapping FunctionImportName="usp_DeleteOrderById" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_DeleteOrderById" />
+          <FunctionImportMapping FunctionImportName="usp_EditFoodStoreDetails" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_EditFoodStoreDetails" />
+          <FunctionImportMapping FunctionImportName="usp_GetFoodItemDetails" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_GetFoodItemDetails">
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetFoodStores" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_GetFoodStores">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Online_Food_Ordering_SystemModel.usp_GetFoodStores_Result">
+                <ScalarProperty Name="Food_Store_Id" ColumnName="Food_Store_Id" />
+                <ScalarProperty Name="Food_Store_Name" ColumnName="Food_Store_Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Mobile_No" ColumnName="Mobile_No" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_UpdateCustomer" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_UpdateCustomer" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateEmployee" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_UpdateEmployee" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateFoodItem" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_UpdateFoodItem" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateOrder" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_UpdateOrder" />
+          <FunctionImportMapping FunctionImportName="usp_UpdateOrderItem" FunctionName="Online_Food_Ordering_SystemModel.Store.usp_UpdateOrderItem" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

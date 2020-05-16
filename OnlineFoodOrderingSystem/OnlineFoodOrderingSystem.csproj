@@ -105,7 +105,9 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FoodController.cs" />
+    <Compile Include="ExceptionLayer\CustomerException.cs" />
     <Compile Include="ExceptionLayer\FoodOrderException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -150,10 +152,13 @@
       <DependentUpon>OnlineFoodOrderingModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceContracts\ICustomerService.cs" />
     <Compile Include="ServiceContracts\IEmployeeService.cs" />
     <Compile Include="ServiceContracts\IFoodService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\FoodService.cs" />
+    <Compile Include="Validations\Customer.cs" />
     <Compile Include="Validations\Employee.cs" />
     <Compile Include="Validations\Food_Item.cs" />
   </ItemGroup>

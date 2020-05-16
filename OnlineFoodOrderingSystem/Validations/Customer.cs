@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace FoodOrdering.Web.Models
+namespace OnlineFoodOrderingSystem.Models
 {
 
     public interface ICustomer
     {
+        [Required(ErrorMessage = "Customer Name Can not be left blank")]
 
         int Customer_Id { get; set; }
 

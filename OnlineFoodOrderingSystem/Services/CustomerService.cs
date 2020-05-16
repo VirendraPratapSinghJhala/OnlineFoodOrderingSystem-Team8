@@ -1,4 +1,6 @@
-﻿using OnlineFoodOrderingSystem.ExceptionLayer;
+﻿
+
+using OnlineFoodOrderingSystem.ExceptionLayer;
 using OnlineFoodOrderingSystem.Models;
 using OnlineFoodOrderingSystem.ServiceContracts;
 using System;
@@ -22,10 +24,10 @@ namespace OnlineFoodOrderingSystem.Services
             //instantiating Online_Food_Ordering_SystemEntities3 Context class
             try
             {
-                using (Online_Food_Ordering_SystemEntities3 db = new Online_Food_Ordering_SystemEntities3())
+                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //use LINQ query to fetch list of customers from table Customers
-                    List<Customer> customersList = db.Customers.ToList();
+                    List<OnlineFoodOrderingSystem.Models.Customer> customersList = db.Customers.ToList();
 
                     //return obtained data 
                     return customersList;
@@ -50,7 +52,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities3 db = new Online_Food_Ordering_SystemEntities3())
+                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //use LINQ query to Add Customers into table Customers
                     db.Customers.Add(customer);
@@ -81,10 +83,10 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities3 db = new Online_Food_Ordering_SystemEntities3())
+                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //LINQ query to find Food Item corresponding to passed foodItemId
-                    Customer item = db.Customers.Where(c => c.Customer_Id == customerId).FirstOrDefault();
+                   Customer item = db.Customers.Where(c => c.Customer_Id == customerId).FirstOrDefault();
 
                     //return response
                     return item;
@@ -110,7 +112,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities3 db = new Online_Food_Ordering_SystemEntities3())
+                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //use LINQ query to find the Customer with id customerId
                     Customer item = db.Customers.Where(c => c.Customer_Id == customerId).FirstOrDefault();
@@ -148,7 +150,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities3 db = new Online_Food_Ordering_SystemEntities3())
+                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //use LINQ query to find the Food Item with id foodItem.Food_Item_Id
                     Customer item = db.Customers.Where(c => c.Customer_Id == customer.Customer_Id).FirstOrDefault();
@@ -193,7 +195,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities3 db = new Online_Food_Ordering_SystemEntities3())
+                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //LINQ query to find Food Item corresponding to passed food Item name with case insensitivity of Food Item Name
                     List<Customer> items = db.Customers.Where(c => c.Customer_Name.Equals(customerName, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -210,5 +212,6 @@ namespace OnlineFoodOrderingSystem.Services
             }
         }
 
+       
     }
 }

@@ -1,11 +1,11 @@
-﻿using FoodOrdering.Web.Models;
+﻿using OnlineFoodOrderingSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodOrdering.Web.ServiceContracts
+namespace OnlineFoodOrderingSystem.ServiceContracts
 {
     /// <summary>
     /// Interface ICustomerService having methods to be implemented by class CustomerService 

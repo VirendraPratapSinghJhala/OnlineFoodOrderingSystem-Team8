@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace FoodOrdering.Web.Models
+namespace OnlineFoodOrderingSystem.Models
 {
 
     public interface ICustomer

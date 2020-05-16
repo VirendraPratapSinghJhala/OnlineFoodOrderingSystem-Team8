@@ -1,12 +1,12 @@
-﻿using FoodOrdering.Web.ExceptionLayer;
-using FoodOrdering.Web.Models;
-using FoodOrdering.Web.ServiceContracts;
+﻿using OnlineFoodOrderingSystem.ExceptionLayer;
+using OnlineFoodOrderingSystem.Models;
+using OnlineFoodOrderingSystem.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace FoodOrdering.Web.Services
+namespace OnlineFoodOrderingSystem.Services
 {
     /// <summary>
     /// class CustomerService implements ICustomerService interface And manages CRUD operations on the Customers table

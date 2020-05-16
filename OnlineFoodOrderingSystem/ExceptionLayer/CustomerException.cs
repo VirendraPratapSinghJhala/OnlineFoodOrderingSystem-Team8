@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace FoodOrdering.Web.ExceptionLayer
+namespace OnlineFoodOrderingSystem.ExceptionLayer
 {
     public class CustomerException : ApplicationException
     {

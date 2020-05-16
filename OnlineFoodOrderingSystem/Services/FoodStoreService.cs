@@ -26,7 +26,7 @@ namespace OnlineFoodOrderingSystem.Services
                 using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //use LINQ query to fetch list of Food Stores from table Food_Stores
-                    List<Food_Store> foodStoresList = db.usp_GetFoodStore().ToList();
+                    List<Food_Store> foodStoresList = db.usp_GetFoodStores().ToList();
 
                     //assigning lazy loading to be false
                     db.Configuration.LazyLoadingEnabled = false;
@@ -119,7 +119,7 @@ namespace OnlineFoodOrderingSystem.Services
                     //use LINQ query to find the Food Store with id foodStoreId
                     Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStoreId).FirstOrDefault();
 
-                    if (item != null)
+                    if (store != null)
                     //use LINQ query to delete Food Stores from table Food_Stores
                     {
                         //remove item from Food_Stores
@@ -158,14 +158,14 @@ namespace OnlineFoodOrderingSystem.Services
                     //use LINQ query to find the Food Store with id foodStore.Food_Store_Id
                     Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStore.Food_Store_Id).FirstOrDefault();
 
-                    if (item != null)
+                    if (store != null)
                     {
                         //update  Food Store details 
-                        item.Store_Name = foodStore.Food_Store_Name;
-                        item.Store_Location = foodStore.Location;
-                        item.Store_Mobile = foodStore.Mobile_No;
-                        item.Store_Email = foodStore.Email;
-                        item.Store_Rating = foodStore.Rating;
+                        store.Food_Store_Name = foodStore.Food_Store_Name;
+                        store.Location = foodStore.Location;
+                        store.Mobile_No = foodStore.Mobile_No;
+                        store.Email = foodStore.Email;
+                        store.Rating = foodStore.Rating;
 
                         //save changes to the database
                         db.SaveChanges();
@@ -191,7 +191,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// </summary>
         /// <param name="foodStoreLocation"></param>
         /// <returns>returns List of Food_Stores </returns>
-        public List<Food_Store> GetFoodStoreByLocation(string Location)
+        public List<Food_Store> GetFoodStoreByLocation(string location)
         {
             try
             {
@@ -199,10 +199,10 @@ namespace OnlineFoodOrderingSystem.Services
                 using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
                 {
                     //LINQ query to find Food Store corresponding to passed location  with case insensitivity.
-                    List<Food_Store> stores = db.Food_Stores.Where(f => f.Location.Equals(Location, StringComparison.OrdinalIgnoreCase)).ToList();
+                    List<Food_Store> stores = db.Food_Stores.Where(f => f.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
 
                     //return response
-                    return items;
+                    return stores;
 
                 }
             }
@@ -218,7 +218,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// </summary>
         /// <param name="foodStoreName"></param>
         /// <returns>returns List of Food_Stores </returns>
-        public List<Food_Store> GetFoodStoreByFoodName(string foodStoreName)
+        public List<Food_Store> GetFoodStoreByStoreName(string foodStoreName)
         {
             try
             {
@@ -230,6 +230,34 @@ namespace OnlineFoodOrderingSystem.Services
 
                     //return response
                     return stores;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw our user defined FoodOrderException
+                throw new FoodOrderException(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// method fetches the food store corresponding to the passed email
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns>returns list of food_store </returns>
+        public Food_Store GetFoodStoreByEmail(string email)
+        {
+            try
+            {
+                //instantiating Online_Food_Ordering_SystemEntities Context class
+                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                {
+                    //LINQ query to find Food Store corresponding to passed food Store name with case insensitivity of Food Store Name
+                    Food_Store store = db.Food_Stores.Where(f => f.Email.Equals(email)).FirstOrDefault();
+
+                    //return response
+                    return store;
 
                 }
             }

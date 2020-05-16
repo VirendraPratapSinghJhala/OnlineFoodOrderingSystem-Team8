@@ -23,7 +23,7 @@ public class FoodStoreController : ApiController
         /// Method GetAllFoodStores() to get a list of all the Food Stores
         /// </summary>
         /// <returns>List of Food Stores</returns>
-        public List<Food_Stores> GetAllFoodStores()
+        public List<Food_Store> GetAllFoodStores()
         {
             //check the validity of the input
             if (ModelState.IsValid)
@@ -34,7 +34,7 @@ public class FoodStoreController : ApiController
                     FoodStoreService fs = new FoodStoreService();
 
                     //Call GetAllFoodStores() to fetch all Food stores 
-                    List<Food_Stores> foodStoresList = fs.GetAllFoodStores();
+                    List<Food_Store> foodStoresList = fs.GetAllFoodStores();
 
                     //return the response
                     return foodStoresList;
@@ -59,7 +59,7 @@ public class FoodStoreController : ApiController
         /// </summary>
         /// <param name="foodStoreId"></param>
         /// <returns>returns Food_Store type value</returns>
-        public Food_Store GetFoodStoreById(int Food_Store_Id)
+        public Food_Store GetFoodStoreById(int foodStoreId)
         {
             //check the validity of the input
             if (ModelState.IsValid)
@@ -70,7 +70,7 @@ public class FoodStoreController : ApiController
                     FoodStoreService fs = new FoodStoreService();
 
                     //Call GetAllFoodStores() to fetch all Food Stores 
-                    Food_Store foodStore = fs.GetFoodStoreById(Food_Store_Id);
+                    Food_Store foodStore = fs.GetFoodStoreById(foodStoreId);
 
                     //return the response
                     return foodStore;
@@ -94,7 +94,7 @@ public class FoodStoreController : ApiController
         /// </summary>
         /// <param name="foodStoreName"></param>
         /// <returns>returns List of Food_Store </returns>
-        public List<Food_Store> GetFoodStoreByFoodName(string Food_Store_Name)
+        public List<Food_Store> GetFoodStoreByStoreName(string foodStoreName)
         {
             //check the validity of the input
             if (ModelState.IsValid)
@@ -105,7 +105,7 @@ public class FoodStoreController : ApiController
                     FoodStoreService fs = new FoodStoreService();
 
                     //Call GetFoodStoreByFoodName method to fetch all Food Stores corresponding to  foodStoreName
-                    List<Food_Store> foodStores = fs.GetFoodStoreByFoodName(Food_Store_Name);
+                    List<Food_Store> foodStores = fs.GetFoodStoreByStoreName(foodStoreName);
 
                     //return the response
                     return foodStores;
@@ -127,9 +127,9 @@ public class FoodStoreController : ApiController
         /// <summary>
         /// Method fetches the Food Store corresponding to the passed Email
         /// </summary>
-        /// <param name="Email"></param>
+        /// <param name="email"></param>
         /// <returns>returns List of Food_Stores </returns>
-        public List<Food_Store> GetFoodStoreByEmail(string Email)
+        public Food_Store GetFoodStoreByEmail(string email)
         {
             //check the validity of the input
             if (ModelState.IsValid)
@@ -140,10 +140,10 @@ public class FoodStoreController : ApiController
                     FoodStoreService fs = new FoodStoreService();
 
                     //Call GetFoodStoreByEmail method to fetch all Food Stores corresponding to  Email
-                    List<Food_Store> foodStores = fs.GetFoodStoreByEmail(Email);
+                    Food_Store foodStore = fs.GetFoodStoreByEmail(email);
 
                     //return the response
-                    return foodStores;
+                    return foodStore;
                 }
                 catch (FoodOrderException)
                 {
@@ -164,7 +164,7 @@ public class FoodStoreController : ApiController
         /// </summary>
         /// <param name="location"></param>
         /// <returns>returns list of Food_Stores</returns>
-        public List<Food_Store> GetFoodStoreByLocation(string Location)
+        public List<Food_Store> GetFoodStoreByLocation(string location)
         {
             //check the validity of the input
             if (ModelState.IsValid)
@@ -175,7 +175,7 @@ public class FoodStoreController : ApiController
                     FoodStoreService fs = new FoodStoreService();
 
                     //Call GetFoodStoreByStoreName method to fetch all Food Stores corresponding to the Location  of the food store
-                    List<Food_Store> foodStores = fs.GetFoodStoreByLocation(Location);
+                    List<Food_Store> foodStores = fs.GetFoodStoreByLocation(location);
 
                     //return the response
                     return foodStores;

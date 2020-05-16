@@ -10,7 +10,8 @@ namespace OnlineFoodOrderingSystem.Models
 
     public interface IFood_Store
     {
-
+        [Required(ErrorMessage = "Store Id Can not be left blank")]
+        [DisplayName("Food Store Id")]
         int Food_Store_Id { get; set; }
 
         [Required(ErrorMessage = "Store Name Can not be left blank")]

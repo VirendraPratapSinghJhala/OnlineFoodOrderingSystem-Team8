@@ -54,17 +54,17 @@ namespace OnlineFoodOrderingSystem.ServiceContracts
         List<Food_Store> GetFoodStoreByStoreName(string foodStoreName);
 
         /// <summary>
-        /// Method fetches the Food Store corresponding to the passed Email
+        /// method fetches the food store corresponding to the passed email
         /// </summary>
-        /// <param name="Email"></param>
-        /// <returns>returns List of Food_Store </returns>
-       // List<Food_Store> GetFoodStoreByEmail(string Email);
+        /// <param name="email"></param>
+        /// <returns>returns list of food_store </returns>
+         Food_Store GetFoodStoreByEmail(string email);
 
         /// <summary>
         /// Method fetches the Food Store corresponding to the passed foodStoreLocation
         /// </summary>
         /// <param name="foodStoreLocation"></param>
         /// <returns>returns List of Food_Store </returns>
-       // List<Food_Store> GetFoodStoreByFoodStoreLocation(string foodStoreLocation);
+        List<Food_Store> GetFoodStoreByLocation(string foodStoreLocation);
     }
 }

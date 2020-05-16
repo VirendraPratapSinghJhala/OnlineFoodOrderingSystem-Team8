@@ -248,9 +248,14 @@ namespace OnlineFoodOrderingSystem.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Food_Item>("usp_GetFoodItemDetails", mergeOption);
         }
     
-        public virtual ObjectResult<usp_GetFoodStores_Result> usp_GetFoodStores()
+        public virtual ObjectResult<Food_Store> usp_GetFoodStores()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetFoodStores_Result>("usp_GetFoodStores");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Food_Store>("usp_GetFoodStores");
+        }
+    
+        public virtual ObjectResult<Food_Store> usp_GetFoodStores(MergeOption mergeOption)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Food_Store>("usp_GetFoodStores", mergeOption);
         }
     
         public virtual int usp_UpdateCustomer(Nullable<int> customerId, string customerName, Nullable<int> age, string password, string mobileNo, string email, string city)

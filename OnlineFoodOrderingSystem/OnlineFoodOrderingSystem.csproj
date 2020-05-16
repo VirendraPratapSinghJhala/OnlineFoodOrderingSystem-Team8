@@ -99,6 +99,7 @@
       <DependentUpon>OnlineFoodOrderingModel.edmx</DependentUpon>
       <LastGenOutput>OnlineFoodOrderingModel.cs</LastGenOutput>
     </Content>
+    <Content Include="SQL Scripts\AllSqlScripts.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

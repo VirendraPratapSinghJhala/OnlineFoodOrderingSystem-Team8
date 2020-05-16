@@ -108,6 +108,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FoodController.cs" />
     <Compile Include="ExceptionLayer\CustomerException.cs" />
+    <Compile Include="ExceptionLayer\EmployeeException.cs" />
     <Compile Include="ExceptionLayer\FoodOrderException.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

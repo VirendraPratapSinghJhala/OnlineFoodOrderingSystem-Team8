@@ -35,7 +35,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //return the response
                     return employeesList;
                 }
-                catch (FoodOrderException)
+                catch (EmployeeException)
                 {
                     //rethrow
                     throw;
@@ -45,7 +45,7 @@ namespace OnlineFoodOrderingSystem.Controllers
             else
             {
                 // throw user defined exception object
-                throw new FoodOrderException("The entered details to fetch the Employees are not valid.");
+                throw new EmployeeException("The entered details to fetch the Employees are not valid.");
             }
         }
 
@@ -71,7 +71,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //return the response
                     return employee;
                 }
-                catch (FoodOrderException)
+                catch (EmployeeException)
                 {
                     //rethrow
                     throw;
@@ -81,7 +81,7 @@ namespace OnlineFoodOrderingSystem.Controllers
             else
             {
                 //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the Employee are not valid");
+                throw new EmployeeException("The entered details to fetch the Employee are not valid");
             }
         }
 
@@ -107,7 +107,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //return the response
                     return employees;
                 }
-                catch (FoodOrderException)
+                catch (EmployeeException)
                 {
                     //rethrow
                     throw;
@@ -117,7 +117,7 @@ namespace OnlineFoodOrderingSystem.Controllers
             else
             {
                 //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the employees are not valid");
+                throw new EmployeeException("The entered details to fetch the employees are not valid");
             }
         }
 
@@ -143,7 +143,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //return the response
                     return isDeleted;
                 }
-                catch (FoodOrderException)
+                catch (EmployeeException)
                 {
                     //rethrow
                     throw;
@@ -153,7 +153,7 @@ namespace OnlineFoodOrderingSystem.Controllers
             else
             {
                 //throw user defined exception object 
-                throw new FoodOrderException("The employeeId is required ");
+                throw new EmployeeException("The employeeId is required ");
             }
         }
 
@@ -178,7 +178,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //return the response
                     return isAdded;
                 }
-                catch (FoodOrderException)
+                catch (EmployeeException)
                 {
                     //rethrow
                     throw;
@@ -188,7 +188,7 @@ namespace OnlineFoodOrderingSystem.Controllers
             else
             {
                 //throw user defined exception object 
-                throw new FoodOrderException("The entered details to add the employee are not valid");
+                throw new EmployeeException("The entered details to add the employee are not valid");
             }
         }
 
@@ -214,7 +214,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //return the response
                     return isUpdated;
                 }
-                catch (FoodOrderException)
+                catch (EmployeeException)
                 {
                     //rethrow
                     throw;
@@ -224,7 +224,7 @@ namespace OnlineFoodOrderingSystem.Controllers
             else
             {
                 //throw user defined exception object 
-                throw new FoodOrderException("The entered details to update the employee are not valid");
+                throw new EmployeeException("The entered details to update the employee are not valid");
             }
         }
 

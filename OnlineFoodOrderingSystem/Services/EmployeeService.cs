@@ -39,8 +39,8 @@ namespace OnlineFoodOrderingSystem.Services
             }
             catch (Exception ex)
             {
-                //throw user defined FoodOrderException
-                throw new FoodOrderException(ex.Message);
+                //throw user defined EmployeeException
+                throw new EmployeeException(ex.Message);
             }
 
         }
@@ -69,8 +69,8 @@ namespace OnlineFoodOrderingSystem.Services
             }
             catch (Exception ex)
             {
-                //throw user defined FoodOrderException
-                throw new FoodOrderException(ex.Message);
+                //throw user defined EmployeeException
+                throw new EmployeeException(ex.Message);
             }
 
         }
@@ -98,8 +98,8 @@ namespace OnlineFoodOrderingSystem.Services
             }
             catch (Exception ex)
             {
-                //throw our user defined FoodOrderException
-                throw new FoodOrderException(ex.Message);
+                //throw our user defined EmployeeException
+                throw new EmployeeException(ex.Message);
             }
         }
 
@@ -138,8 +138,8 @@ namespace OnlineFoodOrderingSystem.Services
             }
             catch (Exception ex)
             {
-                //throw user defined FoodOrderException
-                throw new FoodOrderException(ex.Message);
+                //throw user defined EmployeeException
+                throw new EmployeeException(ex.Message);
             }
         }
 
@@ -183,8 +183,8 @@ namespace OnlineFoodOrderingSystem.Services
             }
             catch (Exception ex)
             {
-                //throw user defined FoodOrderException
-                throw new FoodOrderException(ex.Message);
+                //throw user defined EmployeeException
+                throw new EmployeeException(ex.Message);
             }
 
         }
@@ -211,8 +211,8 @@ namespace OnlineFoodOrderingSystem.Services
             }
             catch (Exception ex)
             {
-                //throw our user defined FoodOrderException
-                throw new FoodOrderException(ex.Message);
+                //throw our user defined EmployeeException
+                throw new EmployeeException(ex.Message);
             }
         }
 

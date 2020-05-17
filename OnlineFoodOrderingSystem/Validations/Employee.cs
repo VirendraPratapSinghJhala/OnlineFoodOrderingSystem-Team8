@@ -9,7 +9,6 @@ namespace OnlineFoodOrderingSystem.Models
 {
     public interface IEmployee
     {
-        [Required(ErrorMessage = "Employee Id Can not be left blank")]
         [DisplayName("Employee Id")]
         int Employee_Id { get; set; }
 

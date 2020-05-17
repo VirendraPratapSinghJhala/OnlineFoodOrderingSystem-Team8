@@ -24,7 +24,7 @@ namespace OnlineFoodOrderingSystem.Services
             //instantiating Online_Food_Ordering_SystemEntities3 Context class
             try
             {
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to fetch list of employees from table Employees
                     List<Employee> employeeList = db.Employees.ToList();
@@ -55,7 +55,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to Add Employee to table Employees
                     db.Employees.Add(employee);
@@ -86,7 +86,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //LINQ query to find Employee corresponding to passed employeeId
                     Employee employee = db.Employees.Where(f => f.Employee_Id == employeeId).FirstOrDefault();
@@ -115,7 +115,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to find the Employee with id employeeId
                     Employee employee = db.Employees.Where(f => f.Employee_Id == employeeId).FirstOrDefault();
@@ -154,7 +154,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to find the employee with id employee.Employee_Id
                     Employee item = db.Employees.Where(f => f.Employee_Id == employee.Employee_Id).FirstOrDefault();
@@ -199,7 +199,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //LINQ query to find Employees corresponding to passed employee name with case insensitivity of Employee Name
                     List<Employee> employees = db.Employees.Where(f => f.Employee_Name.Equals(employeeName, StringComparison.OrdinalIgnoreCase)).ToList();

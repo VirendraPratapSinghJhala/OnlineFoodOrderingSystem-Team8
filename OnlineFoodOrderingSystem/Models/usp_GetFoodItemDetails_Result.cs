@@ -17,6 +17,7 @@ namespace OnlineFoodOrderingSystem.Models
         public string Food_Name { get; set; }
         public string Food_Type { get; set; }
         public decimal Price { get; set; }
+        public string ImagePath { get; set; }
         public bool IsActive { get; set; }
         public System.DateTime Creation_Date { get; set; }
     }

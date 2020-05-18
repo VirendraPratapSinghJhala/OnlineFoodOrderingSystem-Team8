@@ -1,4 +1,15 @@
-﻿using OnlineFoodOrderingSystem.ExceptionLayer;
+﻿
+
+
+
+//=============================================
+//  Developer:	<Virendra Pratap Singh Jhala>
+//  Create date: <15th May,2020>
+//  Related To : To perform business logic and accordingly return response to FoodController
+//=============================================
+
+
+using OnlineFoodOrderingSystem.ExceptionLayer;
 using OnlineFoodOrderingSystem.Models;
 using OnlineFoodOrderingSystem.ServiceContracts;
 using System;
@@ -46,15 +57,21 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// AddFoodItem(Food_Items foodItem) adds the foodItem to the Food_Items table
         /// </summary>
-        /// <param name="foodItem"></param>
-        /// <returns>integer value indicating the Food_Item_Id of the added foodItem</returns>
-        public bool AddFoodItem(Food_Item foodItem)
+        /// <param name="foodItem">object of type Food_Item</param>
+        /// <returns>integer value indicating the Id of the added foodItem</returns>
+        public int AddFoodItem(Food_Item foodItem)
         {
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
                 using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
+                    //set IsActive to true for the item to be present
+                    foodItem.IsActive = true;
+
+                    //set creation date of item 
+                    foodItem.Creation_Date = DateTime.Now;
+
                     //check if the foodItem already exists
                     Food_Item item = db.Food_Items.Where(f=>f.Food_Name.Equals(foodItem.Food_Name,StringComparison.OrdinalIgnoreCase) && f.Food_Type.Equals(foodItem.Food_Type,StringComparison.OrdinalIgnoreCase) && f.IsActive==true).FirstOrDefault();
 
@@ -71,7 +88,9 @@ namespace OnlineFoodOrderingSystem.Services
                     //save changes to the database
                     db.SaveChanges();
 
-                    return true;
+                    int foodId = db.Food_Items.Where(f => f.Food_Item_Id == foodItem.Food_Item_Id %% f.IsActive == true).FirstOrDefault();
+
+                    return foodId;
 
                 }
             }
@@ -87,7 +106,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method fetches the Food Item corresponding to the passed foodItemId
         /// </summary>
-        /// <param name="foodItemId"></param>
+        /// <param name="foodItemId">indicates id of food item</param>
         /// <returns>returns Food_Item type value</returns>
         public Food_Item GetFoodItemById(int foodItemId)
         {
@@ -116,8 +135,8 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method Deletes the Food item with foodItemId from table Food_Items
         /// </summary>
-        /// <param name="foodItemId"></param>
-        /// <returns>boolean value</returns>
+        /// <param name="foodItemId">integer indicating id of Food item</param>
+        /// <returns>boolean value indicating whether food item is deleted or not</returns>
         public bool DeleteFoodItemById(int foodItemId)
         {
             try
@@ -158,8 +177,8 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method updates or edits the changes of the passed foodItem in the Food_Items table
         /// </summary>
-        /// <param name="foodItem"></param>
-        /// <returns>boolean value</returns>
+        /// <param name="foodItem">object of type FoodItem </param>
+        /// <returns>boolean value indicating whether fooItem is updated or not</returns>
         public bool UpdateFoodItem(Food_Item foodItem)
         {
             try
@@ -203,7 +222,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method fetches the Food Item corresponding to the passed foodItemType
         /// </summary>
-        /// <param name="foodItemType"></param>
+        /// <param name="foodItemType">type of food item</param>
         /// <returns>returns List of Food_Items </returns>
         public List<Food_Item> GetFoodItemByFoodType(string foodItemType)
         {
@@ -230,7 +249,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method fetches the Food Item corresponding to the passed foodItemName
         /// </summary>
-        /// <param name="foodItemName"></param>
+        /// <param name="foodItemName">name of food item</param>
         /// <returns>returns List of Food_Items </returns>
         public List<Food_Item> GetFoodItemByFoodName(string foodItemName)
         {
@@ -257,8 +276,8 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method fetches the Food Items corresponding to the passed Food Price Range
         /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
+        /// <param name="min">minimum value of price</param>
+        /// <param name="max">maximum value of price</param>
         /// <returns>returns list of Food_Item</returns>
         public List<Food_Item> GetFoodItemByPriceRange(decimal min, decimal max)
         {

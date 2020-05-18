@@ -169,6 +169,8 @@ namespace OnlineFoodOrderingSystem.Controllers
             {
                 try
                 {
+                    employee.IsActive = true;
+                    employee.Creation_Date = DateTime.Now;
                     //instantiate EmployeeService class
                     EmployeeService fs = new EmployeeService();
 

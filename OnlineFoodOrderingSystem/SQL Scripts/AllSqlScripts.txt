@@ -147,14 +147,32 @@ END
 -- Author: <Virendra Pratap Singh Jhala>
 -- Create date: <13th May,2020>
 -- =============================================
+
+--Create table command
 CREATE TABLE Food_Items
-(Food_Item_Id int IDENTITY(100001,1) PRIMARY KEY,
+(
+-Food_Item_Id used to uniquely identify the records
+Food_Item_Id int IDENTITY(100001,1) PRIMARY KEY,
+
+--Food_Name stores the name of food item in text format
 Food_Name nvarchar(255) not null,
+
+--Food_Type stores the type of food item in text format
 Food_Type nvarchar(255) not null,
+
+--Price stores price of food item in money i.e decimal format
 Price money not null, 
+
+--ImagePath will store the link address of image
 ImagePath nvarchar(2000) not null,
+
+--condition/contraint to check that price should be positive and non zero
 CHECK( Price>0),
+
+--IsActive indicates whether Food Item is deleted or present (0-> deleted, 1->present)
 IsActive bit not null,
+
+--Creation_Date stores date of addition of the record to the Food_Items table
 Creation_Date date not null
 )
 go

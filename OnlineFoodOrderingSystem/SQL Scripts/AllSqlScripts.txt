@@ -608,7 +608,7 @@ BEGIN
 	INSERT INTO Orders(Customer_Id,IsActive,Creation_Date)
 	VALUES(@customerId,1,GETDATE());
 	
-	SELECT @orderId=Order_Id FROM Orders WHERE Customer_Id=@customerId;
+	SELECT @orderId=Order_Id FROM Orders WHERE Customer_Id=@customerId AND Submit_status = 0;
  
 	 END
 

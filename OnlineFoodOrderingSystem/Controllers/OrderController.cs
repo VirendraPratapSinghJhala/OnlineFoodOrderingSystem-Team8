@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 
 namespace OnlineFoodOrderingSystem.Controllers
@@ -12,8 +13,15 @@ namespace OnlineFoodOrderingSystem.Controllers
     /// <summary>
     /// OrderController responds to all requests regarding orders and cart
     /// </summary>
-    public class OrderController : Controller
+    public class OrderController : ApiController
     {
+        OrderService os;
+
+        public OrderController()
+        {
+            os = new OrderService();
+        }
+
         /// <summary>
         /// Fetches order history of the customer
         /// </summary>
@@ -28,7 +36,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                 List<Order> OrderHistory = new List<Order>();
                 try
                 {
-                    OrderService os = new OrderService();
+                    
                     OrderHistory = os.GetOrdersByCustomerId(customerId, fromEntryNo, toEntryNo);
                 }
                 catch (FoodOrderException)
@@ -55,7 +63,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                 Order Cart = new Order();
                 try
                 {
-                    OrderService os = new OrderService();
+                    
                     Cart = os.GetCartByCustomerId(customerId);
                 }
                 catch (FoodOrderException)

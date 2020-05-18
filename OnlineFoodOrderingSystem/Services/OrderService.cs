@@ -20,7 +20,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <returns>Cart in form of object of class Order</returns>
         public Order GetCartByCustomerId(int customerId)
         {
-            using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+            using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
             {
                 Order cart = db.Orders.FirstOrDefault(o => (o.isActive && o.Customer_Id == customerId && o.Submit_Status == false));
                 cart.Order_Items = db.Order_Items.Where(item => item.Order_Id == cart.Order_Id).ToList();
@@ -38,7 +38,7 @@ namespace OnlineFoodOrderingSystem.Services
         public List<Order> GetOrdersByCustomerId(int customerId, int fromEntryNo, int toEntryNo)
         {
             List<Order> OrdersList = new List<Order>();
-            using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+            using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
             {
                 try
                 {
@@ -72,7 +72,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <returns>boolean value true if successfully submitted, false if not submitted</returns>
         public bool SubmitOrder(int customerId)
         {
-            using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+            using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
             {
                 bool isSubmitted = false;
                 try
@@ -98,7 +98,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <returns></returns>
         public bool UpdateCart(int customerId, int foodItemId, int foodItemQuantity)
         {
-            using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+            using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
             {
                 bool isUpdated = false;
 

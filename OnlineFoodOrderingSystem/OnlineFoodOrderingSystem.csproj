@@ -127,8 +127,8 @@
     <Content Include="Global.asax" />
     <Content Include="Models\OnlineFoodOrderingModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>OnlineFoodOrderingModel.Context.cs</LastGenOutput>
       <DependentUpon>OnlineFoodOrderingModel.edmx</DependentUpon>
+      <LastGenOutput>OnlineFoodOrderingModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\OnlineFoodOrderingModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -137,6 +137,13 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\OnlineFoodOrderingModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnlineFoodOrderingModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\OnlineFoodOrderingModel.edmx.diagram">
+      <DependentUpon>OnlineFoodOrderingModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -225,13 +232,6 @@
     <Compile Include="Validations\Order.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\OnlineFoodOrderingModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OnlineFoodOrderingModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\OnlineFoodOrderingModel.edmx.diagram">
-      <DependentUpon>OnlineFoodOrderingModel.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

@@ -28,6 +28,9 @@ namespace OnlineFoodOrderingSystem.Models
         [Range(1,100000,ErrorMessage ="Price range should be  between 1 and 100000")]
         decimal Price { get; set; }
 
+        [Required(ErrorMessage = "Food Name Can not be left blank")]
+        string ImagePath { get; set; }
+
         bool IsActive { get; set; }
 
         System.DateTime Creation_Date { get; set; }

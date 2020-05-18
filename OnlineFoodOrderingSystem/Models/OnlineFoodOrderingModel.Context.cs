@@ -15,10 +15,10 @@ namespace OnlineFoodOrderingSystem.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Online_Food_Ordering_SystemEntities : DbContext
+    public partial class Online_Food_Ordering_SystemEntities1 : DbContext
     {
-        public Online_Food_Ordering_SystemEntities()
-            : base("name=Online_Food_Ordering_SystemEntities")
+        public Online_Food_Ordering_SystemEntities1()
+            : base("name=Online_Food_Ordering_SystemEntities1")
         {
         }
     
@@ -96,11 +96,15 @@ namespace OnlineFoodOrderingSystem.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AddEmployee", employee_NameParameter, ageParameter, store_IdParameter, passwordParameter, mobile_NoParameter, emailParameter, cityParameter, employee_Id);
         }
     
-        public virtual ObjectResult<Nullable<long>> usp_AddFoodItem(string foodName, string foodType, Nullable<decimal> price, ObjectParameter foodId)
+        public virtual int usp_AddFoodItem(string foodName, string imagePath, string foodType, Nullable<decimal> price, ObjectParameter foodId)
         {
             var foodNameParameter = foodName != null ?
                 new ObjectParameter("foodName", foodName) :
                 new ObjectParameter("foodName", typeof(string));
+    
+            var imagePathParameter = imagePath != null ?
+                new ObjectParameter("imagePath", imagePath) :
+                new ObjectParameter("imagePath", typeof(string));
     
             var foodTypeParameter = foodType != null ?
                 new ObjectParameter("foodType", foodType) :
@@ -110,7 +114,7 @@ namespace OnlineFoodOrderingSystem.Models
                 new ObjectParameter("price", price) :
                 new ObjectParameter("price", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<long>>("usp_AddFoodItem", foodNameParameter, foodTypeParameter, priceParameter, foodId);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_AddFoodItem", foodNameParameter, imagePathParameter, foodTypeParameter, priceParameter, foodId);
         }
     
         public virtual int usp_AddFoodStoreDetails(string storeName, string location, string email, string mobileNum, Nullable<int> rating, ObjectParameter storeId)
@@ -328,7 +332,7 @@ namespace OnlineFoodOrderingSystem.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateEmployee", employee_IdParameter, employee_NameParameter, ageParameter, store_IdParameter, passwordParameter, mobile_NoParameter, emailParameter, cityParameter);
         }
     
-        public virtual int usp_UpdateFoodItem(Nullable<int> foodId, string foodName, string foodType, Nullable<decimal> price)
+        public virtual int usp_UpdateFoodItem(Nullable<int> foodId, string foodName, string foodType, Nullable<decimal> price, string imagePath)
         {
             var foodIdParameter = foodId.HasValue ?
                 new ObjectParameter("foodId", foodId) :
@@ -346,7 +350,11 @@ namespace OnlineFoodOrderingSystem.Models
                 new ObjectParameter("price", price) :
                 new ObjectParameter("price", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateFoodItem", foodIdParameter, foodNameParameter, foodTypeParameter, priceParameter);
+            var imagePathParameter = imagePath != null ?
+                new ObjectParameter("imagePath", imagePath) :
+                new ObjectParameter("imagePath", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("usp_UpdateFoodItem", foodIdParameter, foodNameParameter, foodTypeParameter, priceParameter, imagePathParameter);
         }
     
         public virtual int usp_UpdateOrder(Nullable<int> orderId, Nullable<bool> submitStatus, Nullable<int> foodStoreId, Nullable<int> employeeId)

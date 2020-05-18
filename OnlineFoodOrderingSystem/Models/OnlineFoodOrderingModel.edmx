@@ -42,6 +42,7 @@
           <Property Name="Food_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Food_Type" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="Creation_Date" Type="date" Nullable="false" />
         </EntityType>
@@ -177,6 +178,7 @@
         </Function>
         <Function Name="usp_AddFoodItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="foodName" Type="nvarchar" Mode="In" />
+          <Parameter Name="imagePath" Type="nvarchar" Mode="In" />
           <Parameter Name="foodType" Type="nvarchar" Mode="In" />
           <Parameter Name="price" Type="money" Mode="In" />
           <Parameter Name="foodId" Type="int" Mode="InOut" />
@@ -248,6 +250,7 @@
           <Parameter Name="foodName" Type="nvarchar" Mode="In" />
           <Parameter Name="foodType" Type="nvarchar" Mode="In" />
           <Parameter Name="price" Type="money" Mode="In" />
+          <Parameter Name="imagePath" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="usp_UpdateOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="orderId" Type="int" Mode="In" />
@@ -337,6 +340,7 @@
           <Property Name="Food_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Food_Type" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Creation_Date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Order_Items" Relationship="Self.Fk_Food_Items" FromRole="Food_Items" ToRole="Order_Items" />
@@ -460,7 +464,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Online_Food_Ordering_SystemEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Online_Food_Ordering_SystemEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Food_Items" EntityType="Online_Food_Ordering_SystemModel.Food_Item" />
@@ -510,8 +514,9 @@
             <Parameter Name="City" Mode="In" Type="String" />
             <Parameter Name="Employee_Id" Mode="InOut" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="usp_AddFoodItem" ReturnType="Collection(Int64)">
+          <FunctionImport Name="usp_AddFoodItem">
             <Parameter Name="foodName" Mode="In" Type="String" />
+            <Parameter Name="imagePath" Mode="In" Type="String" />
             <Parameter Name="foodType" Mode="In" Type="String" />
             <Parameter Name="price" Mode="In" Type="Decimal" />
             <Parameter Name="foodId" Mode="InOut" Type="Int32" />
@@ -583,6 +588,7 @@
             <Parameter Name="foodName" Mode="In" Type="String" />
             <Parameter Name="foodType" Mode="In" Type="String" />
             <Parameter Name="price" Mode="In" Type="Decimal" />
+            <Parameter Name="imagePath" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_UpdateOrder">
             <Parameter Name="orderId" Mode="In" Type="Int32" />
@@ -601,6 +607,7 @@
           <Property Type="String" Name="Food_Name" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Food_Type" Nullable="false" MaxLength="255" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" />
+          <Property Type="String" Name="ImagePath" Nullable="false" MaxLength="2000" />
           <Property Type="Boolean" Name="IsActive" Nullable="false" />
           <Property Type="DateTime" Name="Creation_Date" Nullable="false" />
         </ComplexType>
@@ -619,7 +626,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Online_Food_Ordering_SystemModelStoreContainer" CdmEntityContainer="Online_Food_Ordering_SystemEntities">
+        <EntityContainerMapping StorageEntityContainer="Online_Food_Ordering_SystemModelStoreContainer" CdmEntityContainer="Online_Food_Ordering_SystemEntities1">
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="Online_Food_Ordering_SystemModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
@@ -658,6 +665,7 @@
                 <ScalarProperty Name="Food_Name" ColumnName="Food_Name" />
                 <ScalarProperty Name="Food_Type" ColumnName="Food_Type" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Creation_Date" ColumnName="Creation_Date" />
               </MappingFragment>

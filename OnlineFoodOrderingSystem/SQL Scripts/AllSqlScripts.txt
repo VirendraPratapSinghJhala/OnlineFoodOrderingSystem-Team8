@@ -152,6 +152,7 @@ CREATE TABLE Food_Items
 Food_Name nvarchar(255) not null,
 Food_Type nvarchar(255) not null,
 Price money not null, 
+ImagePath nvarchar(2000) not null,
 CHECK( Price>0),
 IsActive bit not null,
 Creation_Date date not null
@@ -165,7 +166,7 @@ go
 -- Description:	<This is a stored procedure to insert a food item into the Food_Details table>
 -- =============================================
 -- Add the parameters for the stored procedure here
-CREATE PROCEDURE [dbo].[usp_AddFoodItem](@foodName nvarchar(255),@foodType nvarchar(255),@price money, @foodId int out) 
+CREATE PROCEDURE [dbo].[usp_AddFoodItem](@foodName nvarchar(255),@imagePath nvarchar(2000),@foodType nvarchar(255),@price money, @foodId int out) 
 	
 	
 AS
@@ -178,12 +179,21 @@ BEGIN
 	BEGIN
 	    
 		-- Insert statements for procedure here
-	INSERT INTO Food_Items(Food_Name,Food_Type,Price,IsActive,Creation_Date)
-	VALUES(@foodName,@foodType,@price,1,GETDATE());
+	INSERT INTO Food_Items(Food_Name,Food_Type,Price,IsActive,Creation_Date,ImagePath)
+	VALUES(@foodName,@foodType,@price,1,GETDATE(),@imagePath);
 
 	SELECT @foodId=Food_Item_Id FROM Food_Items WHERE Food_Name=@foodName and Food_Type=@foodType;
  
 	 END
+
+	else
+
+	BEGIN
+	print('Food Item Already exists');
+    THROW 50001,'Food Item Already exists',1;
+
+	END
+END
 
 
 -- =============================================
@@ -242,7 +252,7 @@ END
 -- Create date: <13th May,2020>
 -- Description:	<This is a stored procedure to update a food item in the Food_Details table>
 -- =============================================
-CREATE PROCEDURE [dbo].[usp_UpdateFoodItem](@foodId int, @foodName nvarchar(255), @foodType nvarchar(255), @price money)
+CREATE PROCEDURE [dbo].[usp_UpdateFoodItem](@foodId int, @foodName nvarchar(255), @foodType nvarchar(255), @price money,@imagePath nvarchar(2000))
 	-- Add the parameters for the stored procedure here
 	
 AS
@@ -262,7 +272,10 @@ BEGIN
 	BEGIN
 	      
 		  UPDATE Food_Items 
-		  SET Food_Name=@foodName,Food_Type=@foodType,Price=@price
+		  SET Food_Name=@foodName,
+		  Food_Type=@foodType,
+		  Price=@price,
+		  ImagePath=@imagePath
 		  WHERE Food_Item_Id=@foodId;
 
 	END

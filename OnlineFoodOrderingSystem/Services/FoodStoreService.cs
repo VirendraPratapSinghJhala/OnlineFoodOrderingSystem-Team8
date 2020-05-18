@@ -23,7 +23,7 @@ namespace OnlineFoodOrderingSystem.Services
             //instantiating Online_Food_Ordering_SystemEntities Context class
             try
             {
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to fetch list of Food Stores from table Food_Stores
                     List<Food_Store> foodStoresList = db.usp_GetFoodStores().ToList();
@@ -54,7 +54,7 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to Add Food Stores from table Food_Stores
                     db.Food_Stores.Add(foodStore);
@@ -85,10 +85,10 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //LINQ query to find Food Store corresponding to passed foodStoreId
-                    Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStoreId).FirstOrDefault();
+                    Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStoreId && f.IsActive == true).FirstOrDefault();
 
                     //return response
                     return store;
@@ -114,10 +114,10 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to find the Food Store with id foodStoreId
-                    Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStoreId).FirstOrDefault();
+                    Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStoreId && f.IsActive == true).FirstOrDefault();
 
                     if (store != null)
                     //use LINQ query to delete Food Stores from table Food_Stores
@@ -153,10 +153,10 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //use LINQ query to find the Food Store with id foodStore.Food_Store_Id
-                    Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStore.Food_Store_Id).FirstOrDefault();
+                    Food_Store store = db.Food_Stores.Where(f => f.Food_Store_Id == foodStore.Food_Store_Id && f.IsActive == true).FirstOrDefault();
 
                     if (store != null)
                     {
@@ -196,10 +196,10 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //LINQ query to find Food Store corresponding to passed location  with case insensitivity.
-                    List<Food_Store> stores = db.Food_Stores.Where(f => f.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
+                    List<Food_Store> stores = db.Food_Stores.Where(f => f.Location.Equals(location, StringComparison.OrdinalIgnoreCase) && f.IsActive == true).ToList();
 
                     //return response
                     return stores;
@@ -223,10 +223,10 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //LINQ query to find Food Store corresponding to passed food Store name with case insensitivity of Food Store Name
-                    List<Food_Store> stores = db.Food_Stores.Where(f => f.Food_Store_Name.Equals(foodStoreName, StringComparison.OrdinalIgnoreCase)).ToList();
+                    List<Food_Store> stores = db.Food_Stores.Where(f => f.Food_Store_Name.Equals(foodStoreName, StringComparison.OrdinalIgnoreCase)  && f.IsActive == true).ToList();
 
                     //return response
                     return stores;
@@ -251,10 +251,10 @@ namespace OnlineFoodOrderingSystem.Services
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities Context class
-                using (Online_Food_Ordering_SystemEntities db = new Online_Food_Ordering_SystemEntities())
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
                     //LINQ query to find Food Store corresponding to passed food Store name with case insensitivity of Food Store Name
-                    Food_Store store = db.Food_Stores.Where(f => f.Email.Equals(email)).FirstOrDefault();
+                    Food_Store store = db.Food_Stores.Where(f => f.Email.Equals(email) && f.IsActive == true).FirstOrDefault();
 
                     //return response
                     return store;

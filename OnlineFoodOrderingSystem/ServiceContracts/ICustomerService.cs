@@ -1,4 +1,7 @@
-﻿
+﻿//Author: some person
+//Created on:  Date and time
+//Module: Customers module
+
 using OnlineFoodOrderingSystem.Models;
 using System;
 using System.Collections.Generic;

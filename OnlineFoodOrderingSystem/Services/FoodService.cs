@@ -77,6 +77,12 @@ namespace OnlineFoodOrderingSystem.Services
 
                     }
 
+                    //set IsActive to true
+                    foodItem.IsActive = true;
+
+                    //set Creation Date to be the 
+                    foodItem.Creation_Date = DateTime.Now;
+
                     //use LINQ query to Add Food Items from table Food_Items
                     db.Food_Items.Add(foodItem);
 

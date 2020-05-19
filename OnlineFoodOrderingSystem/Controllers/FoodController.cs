@@ -97,9 +97,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <returns>returns List of Food_Items </returns>
         public List<Food_Item> GetFoodItemByFoodName(string foodItemName)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
-            {
+           
                 try
                 {
                     //Call GetFoodItemByFoodName method to fetch all Food Items corresponding to  foodItemName
@@ -113,13 +111,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //rethrow
                     throw;
                 }
-            }
-
-            else
-            {
-                //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the Food Items are not valid");
-            }
+          
         }
 
         /// <summary>
@@ -129,9 +121,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <returns>returns List of Food_Items </returns>
         public List<Food_Item> GetFoodItemByFoodType(string foodItemType)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
 
@@ -146,13 +136,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //rethrow
                     throw;
                 }
-            }
-
-            else
-            {
-                //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the Food Items are not valid");
-            }
+           
         }
 
         /// <summary>
@@ -163,9 +147,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <returns>returns list of Food_Item</returns>
         public List<Food_Item> GetFoodItemByPriceRange(decimal min, decimal max)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
-            {
+            
                 try
                 {
 
@@ -180,13 +162,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //rethrow
                     throw;
                 }
-            }
-
-            else
-            {
-                //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the Food Items are not valid");
-            }
+           
         }
 
 
@@ -197,10 +173,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <returns>boolean value</returns>
         public bool DeleteFoodItemById(int foodItemId)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
-            {
-                try
+           try
                 {
                    
                     //Call GetAllFoodItems() to fetch all Food Items 
@@ -214,13 +187,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                     //rethrow
                     throw;
                 }
-            }
-
-            else
-            {
-                //throw user defined exception object 
-                throw new FoodOrderException("The foodItemId is required ");
-            }
+           
         }
 
 

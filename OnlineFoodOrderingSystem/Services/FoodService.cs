@@ -5,7 +5,7 @@
 //=============================================
 //  Developer:	<Virendra Pratap Singh Jhala>
 //  Create date: <15th May,2020>
-//  Related To : To perform business logic and accordingly return response to FoodController
+//  Description : To perform business logic and accordingly return response to FoodController
 //=============================================
 
 
@@ -66,11 +66,6 @@ namespace OnlineFoodOrderingSystem.Services
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
                 using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {
-                    //set IsActive to true for the item to be present
-                    foodItem.IsActive = true;
-
-                    //set creation date of item 
-                    foodItem.Creation_Date = DateTime.Now;
 
                     //check if the foodItem already exists
                     Food_Item item = db.Food_Items.Where(f=>f.Food_Name.Equals(foodItem.Food_Name,StringComparison.OrdinalIgnoreCase) && f.Food_Type.Equals(foodItem.Food_Type,StringComparison.OrdinalIgnoreCase) && f.IsActive==true).FirstOrDefault();
@@ -88,9 +83,9 @@ namespace OnlineFoodOrderingSystem.Services
                     //save changes to the database
                     db.SaveChanges();
 
-                    int foodId = db.Food_Items.Where(f => f.Food_Item_Id == foodItem.Food_Item_Id %% f.IsActive == true).FirstOrDefault();
+                    Food_Item fItem = db.Food_Items.Where(f => f.Food_Item_Id == foodItem.Food_Item_Id && f.IsActive == true).FirstOrDefault();
 
-                    return foodId;
+                    return fItem.Food_Item_Id;
 
                 }
             }
@@ -181,6 +176,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <returns>boolean value indicating whether fooItem is updated or not</returns>
         public bool UpdateFoodItem(Food_Item foodItem)
         {
+            
             try
             {
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class

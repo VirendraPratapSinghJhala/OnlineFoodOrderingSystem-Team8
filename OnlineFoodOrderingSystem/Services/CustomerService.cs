@@ -51,8 +51,7 @@ namespace OnlineFoodOrderingSystem.Services
         {
             try
             {
-                customer.IsActive = true;
-                customer.Creation_Date = DateTime.Now;
+               
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
                 using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {

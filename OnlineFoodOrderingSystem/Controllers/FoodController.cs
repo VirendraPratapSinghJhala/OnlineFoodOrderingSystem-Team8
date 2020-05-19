@@ -63,7 +63,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="foodItemId">indicates id of food item</param>
         /// <returns>returns Food_Item type value</returns>
-        public Food_Item GetFoodItemById(int Food_Item_Id)
+        public Food_Item GetFoodItemById(int foodItemId)
         {
             //check the validity of the input
             if (ModelState.IsValid)
@@ -71,7 +71,7 @@ namespace OnlineFoodOrderingSystem.Controllers
                 try
                 {
                     //Call GetAllFoodItems() to fetch all Food Items 
-                    Food_Item foodItem = fs.GetFoodItemById(Food_Item_Id);
+                    Food_Item foodItem = fs.GetFoodItemById(foodItemId);
 
                     //return the response
                     return foodItem;

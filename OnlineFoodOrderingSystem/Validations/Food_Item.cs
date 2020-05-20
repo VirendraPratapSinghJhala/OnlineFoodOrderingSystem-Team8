@@ -34,15 +34,15 @@ namespace OnlineFoodOrderingSystem.Models
         string Food_Type { get; set; }
 
         [Required(ErrorMessage = "Price Can not be left blank")]
-        [RegularExpression("^[1-9][0-9]*$",ErrorMessage ="Price should be greater than zero and should not be negative")]
+        [RegularExpression("^[1-9][0-9]*.[0-9]*$",ErrorMessage ="Price should be greater than zero and should not be negative")]
         decimal Price { get; set; }
 
         [Required(ErrorMessage = "Image Path Can not be left blank")]
+        [StringLength(2000, ErrorMessage = "Image Path can be of maximum 2000 characters")]
+        [DisplayName("Image Path")]
         string ImagePath { get; set; }
 
-        bool IsActive { get; set; }
-
-        System.DateTime Creation_Date { get; set; }
+      
     }
 
 

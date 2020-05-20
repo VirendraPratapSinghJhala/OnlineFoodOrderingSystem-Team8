@@ -455,8 +455,8 @@ Password nvarchar(255) not null,
 Mobile_No nvarchar(13) not null,
 Email nvarchar(255) not null, 
 City nvarchar(50) not null,
-IsActive bit not null,
-Creation_Date date not null
+IsActive bit default 1 not null,
+Creation_Date date default GetDate() not null
 CONSTRAINT Fk_Store FOREIGN KEY (Store_Id) REFERENCES Food_Stores(Food_Store_Id)
 )
 go

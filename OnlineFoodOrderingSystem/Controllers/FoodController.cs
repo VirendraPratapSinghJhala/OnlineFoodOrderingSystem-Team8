@@ -38,23 +38,24 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// Method GetAllFoodItems() to get a list of all the Food Items
         /// </summary>
         /// <returns>List of Food Items</returns>
+        [HttpGet]
         public List<Food_Item> GetAllFoodItems()
         {
-           
-                try
-                {
-                    //Call GetAllFoodItems() to fetch all Food Items 
-                    List<Food_Item> foodItemsList = fs.GetAllFoodItems();
 
-                    //return the response
-                    return foodItemsList;
-                }
-                catch (FoodOrderException)
-                {
-                    //rethrow
-                    throw;
-                }
-          
+            try
+            {
+                //Call GetAllFoodItems() to fetch all Food Items 
+                List<Food_Item> foodItemsList = fs.GetAllFoodItems();
+
+                //return the response
+                return foodItemsList;
+            }
+            catch (FoodOrderException)
+            {
+                //rethrow
+                throw;
+            }
+
         }
 
 
@@ -63,38 +64,34 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="foodItemId">indicates id of food item</param>
         /// <returns>returns Food_Item type value</returns>
+        [HttpGet]
         public Food_Item GetFoodItemById(int foodItemId)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    //Call GetAllFoodItems() to fetch all Food Items 
-                    Food_Item foodItem = fs.GetFoodItemById(foodItemId);
 
-                    //return the response
-                    return foodItem;
-                }
-                catch (FoodOrderException)
-                {
-                    //rethrow
-                    throw;
-                }
+            try
+            {
+                //Call GetAllFoodItems() to fetch all Food Items 
+                Food_Item foodItem = fs.GetFoodItemById(foodItemId);
+
+                //return the response
+                return foodItem;
             }
-
-            else
+            catch (FoodOrderException)
             {
-                //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the Food Items are not valid");
+                //rethrow
+                throw;
             }
         }
+
+    
 
         /// <summary>
         /// Method fetches the Food Item corresponding to the passed foodItemName
         /// </summary>
         /// <param name="foodItemName">name of food item</param>
         /// <returns>returns List of Food_Items </returns>
+
+        [HttpGet]
         public List<Food_Item> GetFoodItemByFoodName(string foodItemName)
         {
            
@@ -119,6 +116,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="foodItemType">type of food item</param>
         /// <returns>returns List of Food_Items </returns>
+        [HttpGet]
         public List<Food_Item> GetFoodItemByFoodType(string foodItemType)
         {
             
@@ -145,6 +143,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <param name="min">minimum value of price </param>
         /// <param name="max">maximum value of price</param>
         /// <returns>returns list of Food_Item</returns>
+       [HttpGet]
         public List<Food_Item> GetFoodItemByPriceRange(decimal min, decimal max)
         {
             
@@ -171,6 +170,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="foodItemId">indicates id of food item</param>
         /// <returns>boolean value</returns>
+       [HttpDelete]
         public bool DeleteFoodItemById(int foodItemId)
         {
            try
@@ -196,6 +196,8 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="foodItem">object of type FoodItem</param>
         /// <returns>integer value indicating the Food_Item_Id of the added foodItem</returns>
+       
+        [HttpPost]
         public int AddFoodItem(Food_Item foodItem)
         {
             //check the validity of the input
@@ -229,6 +231,8 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="foodItem">object of type FoodItem</param>
         /// <returns>boolean value</returns>
+        
+        [HttpPut]
         public bool UpdateFoodItem(Food_Item foodItem)
         {
             //check the validity of the input

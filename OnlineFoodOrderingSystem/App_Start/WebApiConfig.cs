@@ -10,7 +10,7 @@ namespace OnlineFoodOrderingSystem
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            // Web API configuration and servicesD:\cSharp workspace\M4\Virendra Pratap Singh Jhala\Sprint-2\OnlineFoodOrderingSystem\OnlineFoodOrderingSystem\App_Start\WebApiConfig.cs
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -20,6 +20,8 @@ namespace OnlineFoodOrderingSystem
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.Remove(GlobalConfiguration.Configuration.Formatters.XmlFormatter);
 
             EnableCorsAttribute cors = new EnableCorsAttribute("*","*","*");
             config.EnableCors(cors);

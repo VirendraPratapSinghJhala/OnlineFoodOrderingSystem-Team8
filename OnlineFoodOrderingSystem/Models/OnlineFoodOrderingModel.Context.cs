@@ -17,9 +17,12 @@ namespace OnlineFoodOrderingSystem.Models
     
     public partial class Online_Food_Ordering_SystemEntities1 : DbContext
     {
+
+      
         public Online_Food_Ordering_SystemEntities1()
             : base("name=Online_Food_Ordering_SystemEntities1")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -1,4 +1,9 @@
-﻿using System;
+﻿//=============================================
+//  Developer:	<Mehul Jain>
+//  Create date: <15th May,2020>
+//  Description : To manage Customers related requests/response scenerio
+//=============================================
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -93,7 +98,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// Method fetches the Customer corresponding to the passed customerName
         /// </summary>
         /// <param name="customerName"></param>
-        /// <returns>returns List of Food_Items </returns>
+        /// <returns>returns List of Customers </returns>
         public List<Customer> GetCustomerByCustomerName(string customerName)
         {
             //check the validity of the input

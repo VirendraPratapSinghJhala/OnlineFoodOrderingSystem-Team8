@@ -1,4 +1,9 @@
-﻿using System;
+﻿//=============================================
+//  Developer:	<Mehul Jain>
+//  Create date: <15th May,2020>
+//  Description : To manage Customer Exception.
+//=============================================
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;

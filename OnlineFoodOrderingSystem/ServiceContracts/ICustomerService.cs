@@ -1,6 +1,8 @@
-﻿//Author: some person
-//Created on:  Date and time
-//Module: Customers module
+﻿//=============================================
+//  Developer:	<Mehul Jain>
+//  Create date: <15th May,2020>
+//  Description: Defines contract for CustoomerService and all related classes to implement all its methods
+//=============================================
 
 using OnlineFoodOrderingSystem.Models;
 using System;
@@ -26,7 +28,7 @@ namespace OnlineFoodOrderingSystem.ServiceContracts
         /// AddCustomer(Customer customer) adds the customer to the Customers table
         /// </summary>
         /// <param name="customer"></param>
-        /// <returns>integer value indicating the Customer_Id of the added customer</returns>
+        /// <returns>boolean value indicating the Customer_Id of the added customer</returns>
         bool AddCustomer(Customer customer);
 
         /// <summary>

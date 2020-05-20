@@ -1,4 +1,14 @@
-﻿using System;
+﻿
+
+
+//=============================================
+//  Developer:	<Virendra Pratap Singh Jhala>
+//  Create date: <14th May,2020>
+//  Related To : To validate the incoming inputs 
+//=============================================
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +20,6 @@ namespace OnlineFoodOrderingSystem.Models
 
     public interface IFood_Item
     {
-        [Required(ErrorMessage = "Food Item's id cannot be left blank")]
         [DisplayName("Food Item Id")]
         int Food_Item_Id { get; set; }
 
@@ -25,10 +34,10 @@ namespace OnlineFoodOrderingSystem.Models
         string Food_Type { get; set; }
 
         [Required(ErrorMessage = "Price Can not be left blank")]
-        [Range(1,100000,ErrorMessage ="Price range should be  between 1 and 100000")]
+        [RegularExpression("^[1-9][0-9]*$",ErrorMessage ="Price should be greater than zero and should not be negative")]
         decimal Price { get; set; }
 
-        [Required(ErrorMessage = "Food Name Can not be left blank")]
+        [Required(ErrorMessage = "Image Path Can not be left blank")]
         string ImagePath { get; set; }
 
         bool IsActive { get; set; }

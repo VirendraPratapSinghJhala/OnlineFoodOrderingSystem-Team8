@@ -1,4 +1,4 @@
-﻿
+﻿Create Database Online_food_Ordering_System
 
 Use Online_food_Ordering_System
 go
@@ -17,8 +17,8 @@ Password nvarchar(255) not null,
 Mobile_No nvarchar(13) not null,
 Email nvarchar(255) not null, 
 City nvarchar(50) not null,
-IsActive bit not null,
-Creation_Date date not null
+IsActive bit Default 1,
+Creation_Date date Default GetDate()
 )
 go
 
@@ -147,15 +147,33 @@ END
 -- Author: <Virendra Pratap Singh Jhala>
 -- Create date: <13th May,2020>
 -- =============================================
+
+--Create table command
 CREATE TABLE Food_Items
-(Food_Item_Id int IDENTITY(100001,1) PRIMARY KEY,
+(
+-Food_Item_Id used to uniquely identify the records
+Food_Item_Id int IDENTITY(100001,1) PRIMARY KEY,
+
+--Food_Name stores the name of food item in text format
 Food_Name nvarchar(255) not null,
+
+--Food_Type stores the type of food item in text format
 Food_Type nvarchar(255) not null,
+
+--Price stores price of food item in money i.e decimal format
 Price money not null, 
+
+--ImagePath will store the link address of image
 ImagePath nvarchar(2000) not null,
+
+--condition/contraint to check that price should be positive and non zero
 CHECK( Price>0),
-IsActive bit not null,
-Creation_Date date not null
+
+--IsActive indicates whether Food Item is deleted or present (0-> deleted, 1->present)
+IsActive bit Default 1,
+
+--Creation_Date stores date of addition of the record to the Food_Items table
+Creation_Date date Default GetDate()
 )
 go
 
@@ -301,8 +319,8 @@ Email nvarchar(255) not null,
 Rating int not null,
 check(Rating>0),
 Mobile_No nvarchar(13) not null,
-IsActive bit not null,
-Creation_Date date not null)
+IsActive bit Default 1,
+Creation_Date date Default GetDate())
 
 
 
@@ -442,8 +460,8 @@ Password nvarchar(255) not null,
 Mobile_No nvarchar(13) not null,
 Email nvarchar(255) not null, 
 City nvarchar(50) not null,
-IsActive bit not null,
-Creation_Date date not null
+IsActive bit default 1 not null,
+Creation_Date date default GetDate() not null
 CONSTRAINT Fk_Store FOREIGN KEY (Store_Id) REFERENCES Food_Stores(Food_Store_Id)
 )
 go
@@ -626,7 +644,7 @@ BEGIN
 	INSERT INTO Orders(Customer_Id,IsActive,Creation_Date)
 	VALUES(@customerId,1,GETDATE());
 	
-	SELECT @orderId=Order_Id FROM Orders WHERE Customer_Id=@customerId;
+	SELECT @orderId=Order_Id FROM Orders WHERE Customer_Id=@customerId AND Submit_status = 0;
  
 	 END
 

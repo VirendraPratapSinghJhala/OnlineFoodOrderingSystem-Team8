@@ -1,4 +1,8 @@
-﻿
+﻿//=============================================
+//  Developer:	<Mehul Jain>
+//  Create date: <15th May,2020>
+//  Description : To perform business logic and accordingly return response to CustomerController
+//=============================================
 
 using OnlineFoodOrderingSystem.ExceptionLayer;
 using OnlineFoodOrderingSystem.Models;
@@ -51,6 +55,7 @@ namespace OnlineFoodOrderingSystem.Services
         {
             try
             {
+               
                 //instantiating Online_Food_Ordering_SystemEntities3 Context class
                 using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
                 {

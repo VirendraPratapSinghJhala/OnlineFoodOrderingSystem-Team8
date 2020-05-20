@@ -1,4 +1,10 @@
-﻿using OnlineFoodOrderingSystem.ExceptionLayer;
+﻿//=============================================
+//  Developer:	<Subin Sunu Jacob>
+//  Create date: <14th May,2020>
+//  Related To : To manage Employee related requests/response scenerio
+//=============================================
+
+using OnlineFoodOrderingSystem.ExceptionLayer;
 using OnlineFoodOrderingSystem.Models;
 using OnlineFoodOrderingSystem.Services;
 using System;
@@ -15,73 +21,57 @@ namespace OnlineFoodOrderingSystem.Controllers
     /// </summary>
     public class EmployeeController : ApiController
     {
+        //declare EmployeeService type instance variable
+        EmployeeService fs;
+
+        EmployeeController()
+        {
+            //instantiate EmployeeService class
+            fs = new EmployeeService();
+        }
+
         /// <summary>
         /// Method GetAllEmployees() to get a list of all the employees
         /// </summary>
         /// <returns>List of Employees</returns>
         public List<Employee> GetAllEmployees()
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    //instantiate EmployeeService class
-                    EmployeeService fs = new EmployeeService();
+                //call GetAllEmployees() to fetch all Employees
+                List<Employee> employeesList = fs.GetAllEmployees();
 
-                    //call GetAllEmployees() to fetch all Employees
-                    List<Employee> employeesList = fs.GetAllEmployees();
-
-                    //return the response
-                    return employeesList;
-                }
-                catch (EmployeeException)
-                {
-                    //rethrow
-                    throw;
-                }
+                //return the response
+                return employeesList;
+            }
+            catch (EmployeeException)
+            {
+                //rethrow
+                throw;
             }
 
-            else
-            {
-                // throw user defined exception object
-                throw new EmployeeException("The entered details to fetch the Employees are not valid.");
-            }
         }
 
 
         /// <summary>
         /// Method fetches the Employee corresponding to the passed employeeId
         /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns>returns Employee type value</returns>
+        /// <param name="employeeId">indicates id of the employee to be searched</param>
+        /// <returns>returns Employee type value </returns>
         public Employee GetEmployeeById(int employeeId)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    //instantiate EmployeeService class
-                    EmployeeService fs = new EmployeeService();
+                //Call GetEmployeeById(int employeeId) to fetch the employee 
+                Employee employee = fs.GetEmployeeById(employeeId);
 
-                    //Call GetEmployeeById(int employeeId) to fetch the employee 
-                    Employee employee = fs.GetEmployeeById(employeeId);
-
-                    //return the response
-                    return employee;
-                }
-                catch (EmployeeException)
-                {
-                    //rethrow
-                    throw;
-                }
+                //return the response
+                return employee;
             }
-
-            else
+            catch (EmployeeException)
             {
-                //throw user defined exception object 
-                throw new EmployeeException("The entered details to fetch the Employee are not valid");
+                //rethrow
+                throw;
             }
         }
 
@@ -89,35 +79,22 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <summary>
         /// Method fetches the list of Employee corresponding to the passed employeeName
         /// </summary>
-        /// <param name="employeeName"></param>
-        /// <returns>returns List of Employee </returns>
+        /// <param name="employeeName">name of employee to be searched</param>
+        /// <returns>returns List of Employees with same name</returns>
         public List<Employee> GetEmployeeByName(string employeeName)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    //instantiate EmployeeService class
-                    EmployeeService fs = new EmployeeService();
+                //Call GetEmployeeByName method to fetch all Employees corresponding to employeeName
+                List<Employee> employees = fs.GetEmployeeByName(employeeName);
 
-                    //Call GetEmployeeByName method to fetch all Employees corresponding to employeeName
-                    List<Employee> employees = fs.GetEmployeeByName(employeeName);
-
-                    //return the response
-                    return employees;
-                }
-                catch (EmployeeException)
-                {
-                    //rethrow
-                    throw;
-                }
+                //return the response
+                return employees;
             }
-
-            else
+            catch (EmployeeException)
             {
-                //throw user defined exception object 
-                throw new EmployeeException("The entered details to fetch the employees are not valid");
+                //rethrow
+                throw;
             }
         }
 
@@ -125,42 +102,29 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <summary>
         /// Method Deletes the Employee with employeeId from table Employees
         /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns>boolean value</returns>
+        /// <param name="employeeId">the id of employee to be deleted</param>
+        /// <returns>boolean value true denoting successful deletion and false for failure in such</returns>
         public bool DeleteEmployeeById(int employeeId)
         {
-            //check the validity of the input
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    //instantiate EmployeeService class
-                    EmployeeService fs = new EmployeeService();
+                //Call DeleteEmployeeById(int employeeId) to delete the Employee 
+                bool isDeleted = fs.DeleteEmployeeById(employeeId);
 
-                    //Call DeleteEmployeeById(int employeeId) to delete the Employee 
-                    bool isDeleted = fs.DeleteEmployeeById(employeeId);
-
-                    //return the response
-                    return isDeleted;
-                }
-                catch (EmployeeException)
-                {
-                    //rethrow
-                    throw;
-                }
+                //return the response
+                return isDeleted;
             }
-
-            else
+            catch (EmployeeException)
             {
-                //throw user defined exception object 
-                throw new EmployeeException("The employeeId is required ");
+                //rethrow
+                throw;
             }
         }
 
         /// <summary>
         /// AddEmployee(Employee employee) adds the employee to the Employees table
         /// </summary>
-        /// <param name="employee"></param>
+        /// <param name="employee">Employee type value that is to be added</param>
         /// <returns>bool value indicating the employeeId of the added employee</returns>
         public bool AddEmployee(Employee employee)
         {
@@ -169,8 +133,8 @@ namespace OnlineFoodOrderingSystem.Controllers
             {
                 try
                 {
-                    //instantiate EmployeeService class
-                    EmployeeService fs = new EmployeeService();
+                    employee.IsActive = true;
+                    employee.Creation_Date = DateTime.Now;
 
                     //Call AddEmployee method to fetch add an Employee 
                     bool isAdded = fs.AddEmployee(employee);
@@ -196,8 +160,8 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <summary>
         /// Method updates or edits the changes of the passed employee in the Employees table
         /// </summary>
-        /// <param name="employee"></param>
-        /// <returns>boolean value</returns>
+        /// <param name="employee"> Employee type value to be updated</param>
+        /// <returns>boolean value true shows the value is updated and false shows it failed to do so</returns>
         public bool UpdateEmployee(Employee employee)
         {
             //check the validity of the input
@@ -205,9 +169,6 @@ namespace OnlineFoodOrderingSystem.Controllers
             {
                 try
                 {
-                    //instantiate EmployeeService class
-                    EmployeeService fs = new EmployeeService();
-
                     //Call UpdateEmployee method to fetch update Employee 
                     bool isUpdated = fs.UpdateEmployee(employee);
 

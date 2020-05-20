@@ -24,6 +24,18 @@ namespace OnlineFoodOrderingSystem.Controllers
     public class CustomerController : ApiController
     {
 
+        //instantiate CustomerService class
+        CustomerService cs;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        public CustomerController()
+        {
+            cs = new CustomerService();
+        }
+
+
         /// <summary>
         /// Method GetAllCustomers() to get a list of all the Customers
         /// </summary>
@@ -35,9 +47,6 @@ namespace OnlineFoodOrderingSystem.Controllers
             {
                 try
                 {
-                    //instantiate CustomerService class
-                    CustomerService cs = new CustomerService();
-
                     //Call GetAllCustomers() to fetch all Customers 
                     List<Customer> customersList = cs.GetAllCustomers();
 
@@ -71,8 +80,6 @@ namespace OnlineFoodOrderingSystem.Controllers
             {
                 try
                 {
-                    //instantiate CustomerService class
-                    CustomerService cs = new CustomerService();
 
                     //Call GetCustomerById() to fetch the Customer 
                     Customer customer = cs.GetCustomerById(customerId);

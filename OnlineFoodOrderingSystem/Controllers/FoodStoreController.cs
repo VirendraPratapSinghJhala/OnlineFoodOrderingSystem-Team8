@@ -10,13 +10,13 @@ using System.Web.Http;
 
 
 namespace OnlineFoodOrderingSystem.Controllers
-{ 
+{
 
     /// <summary>
     /// FoodController class manages the request/response scenerio for the Food_Stores table in database by calling FoodService class's respective methods 
     /// to implement the corresponding operation
     /// </summary>
-public class FoodStoreController : ApiController
+    public class FoodStoreController : ApiController
     {
 
         /// <summary>

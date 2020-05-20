@@ -49,7 +49,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// AddCustomer(Customers customer) adds the customer to the Customers table
         /// </summary>
-        /// <param name="customer"></param>
+        /// <param name="customer">xxxxxxxx</param>
         /// <returns>integer value indicating the Customer_Id of the added foodItem</returns>
         public bool AddCustomer(Customer customer)
         {
@@ -126,8 +126,6 @@ namespace OnlineFoodOrderingSystem.Services
                     {
                         //remove item from Customers
                         db.Customers.Remove(item);
-
-                        //save changes to the database
                         db.SaveChanges();
 
                         return true;

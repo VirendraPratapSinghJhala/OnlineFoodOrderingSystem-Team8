@@ -1,4 +1,9 @@
 ﻿
+//=============================================
+//  Developer:	<Subin Sunu Jacob>
+//  Create date: <15th May,2020>
+//  Description : To perform business logic and accordingly return response to EmployeeController
+//=============================================
 
 using OnlineFoodOrderingSystem.ExceptionLayer;
 using OnlineFoodOrderingSystem.Models;
@@ -21,7 +26,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <returns>List of Employee</returns>
         public List<Employee> GetAllEmployees()
         {
-            //instantiating Online_Food_Ordering_SystemEntities3 Context class
+            //instantiating Online_Food_Ordering_SystemEntities1 Context class
             try
             {
                 using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
@@ -48,8 +53,8 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// AddEmployee(Employees employee) adds the employee to the Employees table
         /// </summary>
-        /// <param name="employee"></param>
-        /// <returns>bool value indicating the Employee_Id of the added employee</returns>
+        /// <param name="employee">Employee type value that is to be added</param>
+        /// <returns>bool value indicating the employeeId of the added employee</returns>
         public bool AddEmployee(Employee employee)
         {
             try
@@ -65,6 +70,12 @@ namespace OnlineFoodOrderingSystem.Services
                         //if exists then throw exception
                         throw new FoodOrderException("Employee already present");
                     }
+
+                    //set IsActive to true
+                    employee.IsActive = true;
+
+                    //set Creation Date to be the 
+                    employee.Creation_Date = DateTime.Now;
 
                     //use LINQ query to Add Employee to table Employees
                     db.Employees.Add(employee);
@@ -88,7 +99,7 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method fetches the Employee corresponding to the passed employeeId
         /// </summary>
-        /// <param name="employeeId"></param>
+        /// <param name="employeeId">indicates id of the employee to be searched</param>
         /// <returns>returns Employee type value</returns>
         public Employee GetEmployeeById(int employeeId)
         {
@@ -117,8 +128,8 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method Deletes the Employee with employeeId from table Employees
         /// </summary>
-        /// <param name="employeeId"></param>
-        /// <returns>boolean value</returns>
+        /// <param name="employeeId">the id of employee to be deleted</param>
+        /// <returns>boolean value true denoting successful deletion and false for failure in such</returns>
         public bool DeleteEmployeeById(int employeeId)
         {
             try
@@ -159,8 +170,8 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method updates or edits the changes of the passed employee in the Employees table
         /// </summary>
-        /// <param name="employee"></param>
-        /// <returns>boolean value</returns>
+        /// <param name="employee">Employee type value to be updated</param>
+        /// <returns>boolean value true shows the value is updated and false shows it failed to do so</returns>
         public bool UpdateEmployee(Employee employee)
         {
             try
@@ -207,8 +218,8 @@ namespace OnlineFoodOrderingSystem.Services
         /// <summary>
         /// Method fetches the Employee corresponding to the passed employeeName
         /// </summary>
-        /// <param name="employeeName"></param>
-        /// <returns>returns List of Employee </returns>
+        /// <param name="employeeName">name of employee to be searched</param>
+        /// <returns>returns List of Employees with same name </returns>
         public List<Employee> GetEmployeeByName(string employeeName)
         {
             try

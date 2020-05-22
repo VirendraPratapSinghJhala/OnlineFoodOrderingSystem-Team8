@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using HttpPutAttribute = System.Web.Http.HttpPutAttribute;
 
 namespace OnlineFoodOrderingSystem.Controllers
 {
@@ -85,7 +86,8 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <param name="foodItemId">Uniquely identifies a food item</param>
         /// <param name="foodItemQuantity">Quantity of the food item to be updated in the database</param>
         /// <returns>Boolean value true if the cart is updated successfully and vice-versa</returns>
-        bool UpdateCart(int customerId, int foodItemId, int foodItemQuantity)
+       [HttpPut]
+       public bool UpdateCart(int customerId, int foodItemId, int foodItemQuantity)
         {
             if (ModelState.IsValid)
             {

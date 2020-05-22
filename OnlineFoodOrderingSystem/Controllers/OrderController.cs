@@ -1,13 +1,8 @@
 ﻿using OnlineFoodOrderingSystem.ExceptionLayer;
 using OnlineFoodOrderingSystem.Models;
 using OnlineFoodOrderingSystem.Services;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
-using System.Web.Mvc;
-using HttpPutAttribute = System.Web.Http.HttpPutAttribute;
 
 namespace OnlineFoodOrderingSystem.Controllers
 {
@@ -32,25 +27,16 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <returns>Order History of the user as a List of Order(s)</returns>
         public List<Order> GetCustomerOrders(int customerId, int fromEntryNo, int toEntryNo)
         {
-            if (ModelState.IsValid)
-            {
                 List<Order> OrderHistory = new List<Order>();
                 try
                 {
-                    
                     OrderHistory = os.GetOrdersByCustomerId(customerId, fromEntryNo, toEntryNo);
                 }
-                catch (FoodOrderException)
+                catch (FoodOrderException fe)
                 {
-                    throw;
+                    BadRequest(fe.Message);
                 }
                 return OrderHistory;
-            }
-            else
-            {
-                //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the order history are not valid");
-            }
         }
         /// <summary>
         /// Gets the cart and its items for the customer
@@ -59,25 +45,16 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <returns>Cart which is not submitted as an order yet</returns>
         public Order GetCustomerCart(int customerId)
         {
-            if (ModelState.IsValid)
-            {
-                Order Cart = new Order();
+                Order Cart = null;
                 try
                 {
-                    
                     Cart = os.GetCartByCustomerId(customerId);
                 }
-                catch (FoodOrderException)
+                catch (FoodOrderException e)
                 {
-                    throw;
+                    BadRequest(e.Message);
                 }
                 return Cart;
-            }
-            else
-            {
-                //throw user defined exception object 
-                throw new FoodOrderException("The entered details to fetch the cart are not valid");
-            }
         }
         /// <summary>
         /// Updates cart of a customer in terms of new food item added or quantity changed
@@ -86,20 +63,21 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// <param name="foodItemId">Uniquely identifies a food item</param>
         /// <param name="foodItemQuantity">Quantity of the food item to be updated in the database</param>
         /// <returns>Boolean value true if the cart is updated successfully and vice-versa</returns>
-       [HttpPut]
-       public bool UpdateCart(int customerId, int foodItemId, int foodItemQuantity)
+        [HttpPut]
+        [Route("api/order/updatecart")]
+        public bool UpdateCart(Order order)
         {
-            if (ModelState.IsValid)
+            if (true)
             {
                 bool isCartUpdated = false;
                 try
                 {
                     OrderService os = new OrderService();
-                    isCartUpdated = os.UpdateCart(customerId, foodItemId, foodItemQuantity);
+                    isCartUpdated = os.UpdateCart(order.Customer_Id, order.Order_Items);
                 }
-                catch (FoodOrderException)
+                catch (FoodOrderException e)
                 {
-                    throw;
+                    BadRequest(e.Message);
                 }
                 return isCartUpdated;
             }
@@ -114,14 +92,13 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="customerId">Uniquely identifies a customer</param>
         /// <returns>Boolean value true if order is submitted successfully and vice-versa</returns>
-        bool SubmitOrder(int customerId)
+        public bool SubmitOrder(int customerId)
         {
             if (ModelState.IsValid)
             {
                 bool isOrderSubmitted = false;
                 try
                 {
-                    OrderService os = new OrderService();
                     isOrderSubmitted = os.SubmitOrder(customerId);
                 }
                 catch (FoodOrderException)

@@ -14,7 +14,7 @@ namespace OnlineFoodOrderingSystem.ServiceContracts
     {
         List<Order> GetOrdersByCustomerId(int customerId, int fromEntryNo, int toEntryNo);
         Order GetCartByCustomerId(int customerId);
-        bool UpdateCart(int customerId, int foodItemId, int foodItemQuantity);
+        bool UpdateCart(int customerId, ICollection<Order_Item> orderItems);
         bool SubmitOrder(int customerId);
     }
 }

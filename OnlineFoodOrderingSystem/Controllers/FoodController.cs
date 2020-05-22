@@ -201,7 +201,7 @@ namespace OnlineFoodOrderingSystem.Controllers
         public int AddFoodItem(Food_Item foodItem)
         {
             //check the validity of the input
-            if (ModelState.IsValid )
+            if (true )
             {
                 try
                 {

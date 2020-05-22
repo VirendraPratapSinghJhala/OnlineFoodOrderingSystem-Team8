@@ -178,10 +178,11 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="customer"></param>
         /// <returns>integer value indicating the Customer_Id of the added Customer</returns>
+        [HttpPost]
         public bool AddCustomer(Customer customer)
         {
             //check the validity of the input
-            if (ModelState.IsValid)
+            if (true)
             {
                 try
                 {
@@ -213,10 +214,11 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="customer"></param>
         /// <returns>boolean value</returns>
+        [HttpPut]
         public bool UpdateCustomer(Customer customer)
         {
             //check the validity of the input
-            if (ModelState.IsValid)
+            if (true)
             {
                 try
                 {

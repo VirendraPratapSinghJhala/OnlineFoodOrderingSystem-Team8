@@ -10,8 +10,6 @@ namespace OnlineFoodOrderingSystem.Validations
 {
     interface Order
     {
-        [Required(ErrorMessage = "Order id, also serving as Cart id cannot be left blank")]
-        [DisplayName("Order Id")]
         int Order_Id { get; set; }
         [Required(ErrorMessage = "Customer id cannot be left blank")]
         [DisplayName("Customer Id")]

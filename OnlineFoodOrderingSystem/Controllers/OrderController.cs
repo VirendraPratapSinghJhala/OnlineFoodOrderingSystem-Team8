@@ -92,6 +92,8 @@ namespace OnlineFoodOrderingSystem.Controllers
         /// </summary>
         /// <param name="customerId">Uniquely identifies a customer</param>
         /// <returns>Boolean value true if order is submitted successfully and vice-versa</returns>
+        [HttpGet]
+        [Route("api/order/submitorder")]
         public bool SubmitOrder(int customerId)
         {
             if (ModelState.IsValid)

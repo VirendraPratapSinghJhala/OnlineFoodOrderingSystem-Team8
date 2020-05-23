@@ -119,6 +119,7 @@ namespace OnlineFoodOrderingSystem.Services
                 {
                     throw new FoodOrderException("Not able to fetch Order List");
                 }
+                OrdersList.Reverse();
                 return OrdersList;
             }
         }
@@ -137,7 +138,9 @@ namespace OnlineFoodOrderingSystem.Services
                 {
                     Order cart = db.Orders.FirstOrDefault(o => (o.isActive && o.Customer_Id == customerId && o.Submit_Status == false));
                     cart.Submit_Status = true;
+                    cart.Order_date = DateTime.Now;
                     db.SaveChanges();
+                    isSubmitted = true;
                 }
                 catch
                 {
@@ -170,16 +173,15 @@ namespace OnlineFoodOrderingSystem.Services
                     //find cart for given customer
                     Order cart = db.Orders.FirstOrDefault(o => (o.isActive && o.Customer_Id == customerId && o.Submit_Status == false));
                     //if cart doesn't exist for customer
+                    int finalTotalPrice = 0;
+                    int finalTotalQuantity = 0;
                     if (cart == null)
                     {
-                        decimal totalItemsPrice = 0;
-                        int totalQuantity = 0;
                         foreach (Order_Item o in orderItems)
                         {
+                            //setting the latest price of the product in the cart
                             decimal foodItemPrice = db.Food_Items.FirstOrDefault(item => item.IsActive && item.Food_Item_Id == o.Food_Item_Id).Price;
                             o.Price = foodItemPrice;
-                            totalItemsPrice += foodItemPrice * (int)o.Quantity;
-                            totalQuantity += (int)o.Quantity;
                             if (o.Quantity < 1)
                             {
                                 orderItems.Remove(o);
@@ -193,19 +195,16 @@ namespace OnlineFoodOrderingSystem.Services
                             Employee = null,
                             Order_Items = orderItems,
                             Food_Store_Id = null,
-                            Total_Quantity = totalQuantity,
                             Submit_Status = false,
-                            Total_Price = (int)totalItemsPrice,
                             Creation_Date = DateTime.Now,
                             isActive = true
                         };
+                        cart = newCart;
                         db.Orders.Add(newCart);
                     }
                     //else if cart exists for customer
                     else
                     {
-                        int totalQty = 0;
-                        int totalPrice = 0;
                         foreach (Order_Item orderItem in orderItems)
                         {
                             //find latest price of given orderItem
@@ -232,19 +231,21 @@ namespace OnlineFoodOrderingSystem.Services
                                 existingOrderItem.Price = foodItemPrice;
                             }
                         }
-                        IQueryable<Order_Item> orderItemList = db.Order_Items.Where(item => item.Order_Id == cart.Order_Id);
-                        foreach (Order_Item orderItem in orderItemList)
-                        {
-                            totalQty += (int)orderItem.Quantity;
-                            totalPrice += (int)orderItem.Price * (int)orderItem.Quantity;
-                            if (orderItem.Quantity < 1)
-                            {
-                                db.Order_Items.Remove(orderItem);
-                            }
-                        }
-                        cart.Total_Quantity = totalQty;
-                        cart.Total_Price = totalPrice;
                     }
+                    db.SaveChanges();
+                    //Updating Total_Quantity and Total_Price in the db
+                    IQueryable<Order_Item> orderItemList = db.Order_Items.Where(item => item.Order_Id == cart.Order_Id);
+                    foreach (Order_Item orderItem in orderItemList)
+                    {
+                        finalTotalQuantity += (int)orderItem.Quantity;
+                        finalTotalPrice += (int)orderItem.Price * (int)orderItem.Quantity;
+                        if (orderItem.Quantity < 1)
+                        {
+                            db.Order_Items.Remove(orderItem);
+                        }
+                    }
+                    cart.Total_Quantity = finalTotalQuantity;
+                    cart.Total_Price = finalTotalPrice;
 
                     db.SaveChanges();
                     isUpdated = true;

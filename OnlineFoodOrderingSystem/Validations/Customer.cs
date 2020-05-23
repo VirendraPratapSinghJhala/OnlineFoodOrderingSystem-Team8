@@ -15,8 +15,8 @@ namespace OnlineFoodOrderingSystem.Models
 
     public interface ICustomer
     {
-        [Required(ErrorMessage = "Customer Name Can not be left blank")]
-
+        [Required(ErrorMessage = "Customer Id Can not be left blank")]
+        [DisplayName("Customer_Id")]
         int Customer_Id { get; set; }
 
         [Required(ErrorMessage = "Customer Name Can not be left blank")]

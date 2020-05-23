@@ -45,6 +45,26 @@ namespace OnlineFoodOrderingSystem.Services
             }
 
         }
+        public Customer CustomerLogin(Customer requestCustomer)
+        {
+            Customer responseCustomer = new Customer();
+            try
+            {
+                using (Online_Food_Ordering_SystemEntities1 db = new Online_Food_Ordering_SystemEntities1())
+                {
+                    var verifier = db.Customers.FirstOrDefault(c => c.IsActive && c.Email == requestCustomer.Email && c.Password == requestCustomer.Password);
+                    if (verifier != null)
+                    {
+                        responseCustomer = verifier;
+                    }
+                }
+            }
+            catch (ApplicationException ae)
+            {
+                throw new FoodOrderException(ae.Message);
+            }
+            return responseCustomer;
+        }
 
         /// <summary>
         /// AddCustomer(Customers customer) adds the customer to the Customers table

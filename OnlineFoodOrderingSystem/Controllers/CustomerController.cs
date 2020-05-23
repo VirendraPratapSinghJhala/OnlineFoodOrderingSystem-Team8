@@ -35,6 +35,22 @@ namespace OnlineFoodOrderingSystem.Controllers
             cs = new CustomerService();
         }
 
+        [Route("api/customer/customerlogin")]
+        [HttpPost]
+        public Customer CustomerLogin(Customer requestCustomer)
+        {
+            Customer responseCustomer = new Customer();
+            try
+            {
+                responseCustomer = cs.CustomerLogin(requestCustomer);
+            }
+            catch
+            {
+                BadRequest("Wrong Input");
+            }
+            return responseCustomer;
+        }
+
 
         /// <summary>
         /// Method GetAllCustomers() to get a list of all the Customers
